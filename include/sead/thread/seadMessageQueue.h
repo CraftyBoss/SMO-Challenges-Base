@@ -1,8 +1,6 @@
 #pragma once
 
-#ifdef NNSDK
-#include <nn/os.h>
-#endif
+#include "nn/os.h"
 
 namespace sead
 {
@@ -14,7 +12,7 @@ public:
 #ifdef NNSDK
     using Element = s64;
 #else
-#error "Unknown platform"
+//#error "Unknown platform"
     using Element = u64;
 #endif
 
@@ -37,11 +35,7 @@ public:
     static constexpr Element cNullElement = 0;
 
 private:
-#ifdef NNSDK
     nn::os::MessageQueueType mMessageQueueInner;
     Element* mBuffer = nullptr;
-#else
-#error "Unknown platform"
-#endif
 };
 }  // namespace sead

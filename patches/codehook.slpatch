@@ -1,17 +1,20 @@
 [version=100, target=main]
 StageScene::control+18:
     BL stageSceneHook
-4C8A4C: // hook to the init of a stage to modify certain conditions (we also have access to SceneInitInfo)
+4C8648: // hook to the init of a stage to modify certain conditions (we also have access to SceneInitInfo)
     BL stageInitHook
 
-5359E0: // GameSystem::init 
+// hooks to start logger
+5359D8: // GameSystem::init 
     BL tryInitSocket
-B59E28: // sead::systen::print
-    B LOG
+B59E28: // sead::system::print
+    B seadPrintHook
 
 //A93B50:
 //    BL fileReadHook
 
+50E89C:
+    BL threadInit
 
 1F2A2C: // patches checkpoint system to always allow warping
     MOV W0, #1

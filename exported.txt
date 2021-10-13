@@ -1,9 +1,10 @@
 {
     global:
         _Z14stageSceneHookv;
-        _Z13stageInitHook22GameDataHolderAccessor;
+        _Z13stageInitHookP10StageScenePN2al13SceneInitInfoE;
         _Z13tryInitSocketv;
-        _Z3LOGPKcz;
+        _Z13seadPrintHookPKcz;
+        _Z10threadInitv;
         _Z12fileReadHookPN4sead11ResourceMgrERKNS0_7LoadArgERKNS_14SafeStringBaseIcEEPNS_12DecompressorE;
     local: *;
 };

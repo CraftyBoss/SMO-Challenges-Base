@@ -1,7 +1,7 @@
 #pragma once
 
-#include <thread/seadMessageQueue.h>
-#include <thread/seadThread.h>
+#include "seadMessageQueue.h"
+#include "seadThread.h"
 
 namespace sead
 {

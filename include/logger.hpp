@@ -1,24 +1,17 @@
 #pragma once
 
-#include <string>
-#include <cstring>
-#include "types.h"
-#include "nn.h"
-#include "log.h"
+#include "SocketBase.hpp"
 
-enum SocketLogState
-{
-    SOCKET_LOG_UNINITIALIZED    = 0,
-    SOCKET_LOG_CONNECTED        = 1,
-    SOCKET_LOG_UNAVAILABLE      = 2
+class Logger;
+extern Logger *gLogger;
+
+class Logger : public SocketBase {
+    public:
+        Logger(const char * ip, u16 port, const char *name) : SocketBase(ip, port, name) {this->init();};
+        void init() override;
+        void LOG(const char *fmt, ...);
+        void LOG(const char *fmt, va_list args);
+        int READ(char *out);
+    private:
+        
 };
-
-int getLogState();
-
-void socket_log(const char* str);
-
-s32 socket_read_char(char *out);
-
-void socket_log_initialize();
-
-void tryInitSocket();

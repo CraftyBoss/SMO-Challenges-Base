@@ -1,11 +1,11 @@
 #ifndef SEAD_HEAPMGR_H_
 #define SEAD_HEAPMGR_H_
 
-#include <container/seadPtrArray.h>
-#include <heap/seadArena.h>
-#include <heap/seadHeap.h>
-#include <thread/seadAtomic.h>
-#include <thread/seadCriticalSection.h>
+#include <sead/container/seadPtrArray.h>
+#include <sead/heap/seadArena.h>
+#include <sead/heap/seadHeap.h>
+#include <sead/thread/seadAtomic.h>
+#include <sead/thread/seadCriticalSection.h>
 
 namespace sead
 {

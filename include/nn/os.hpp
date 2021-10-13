@@ -11,15 +11,15 @@
 
 namespace nn {
 namespace os {
-    namespace detail {
-        class InternalCriticalSection {
-            u32 Image;
-        };
+    // namespace detail {
+    //     class InternalCriticalSection {
+    //         u32 Image;
+    //     };
 
-        class InternalConditionVariable {
-            u32 Image;
-        };
-    }  // namespace detail
+    //     class InternalConditionVariable {
+    //         u32 Image;
+    //     };
+    // }  // namespace detail
 
     typedef u64 Tick;
     typedef u64 LightEventType;
@@ -64,20 +64,20 @@ namespace os {
     };
     static_assert(sizeof(ThreadType) == 0x1C0, "");
 
-    struct MessageQueueType {
-        u64 _x0;
-        u64 _x8;
-        u64 _x10;
-        u64 _x18;
-        void* Buffer;
-        u32 MaxCount;
-        u32 Count;
-        u32 Offset;
-        bool Initialized;
-        detail::InternalCriticalSection _x38;
-        detail::InternalConditionVariable _x3C;
-        detail::InternalConditionVariable _x40;
-    };
+    // struct MessageQueueType {
+    //     u64 _x0;
+    //     u64 _x8;
+    //     u64 _x10;
+    //     u64 _x18;
+    //     void* Buffer;
+    //     u32 MaxCount;
+    //     u32 Count;
+    //     u32 Offset;
+    //     bool Initialized;
+    //     detail::InternalCriticalSection _x38;
+    //     detail::InternalConditionVariable _x3C;
+    //     detail::InternalConditionVariable _x40;
+    // };
 
     struct ConditionVariableType {};
 
