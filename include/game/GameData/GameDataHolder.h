@@ -84,6 +84,8 @@ public:
 
     void readFromSaveDataBufferCommonFileOnlyLanguage();
 
+    void changeNextStage(struct ChangeStageInfo const *, int);
+
     // unsigned char padding_20[0x20 - sizeof(al::ISceneObj)];
     // GameDataFile* mGameDataFile;
 

@@ -6,6 +6,7 @@
 S2VER ?= 100
 S2VERSTR ?= 1.0.0
 S2ROMTYPE ?= US
+IP ?= 0.0.0.0 # Put Switch IP Here (for make send)
 
 PROJNAME ?= StarlightBase
 
@@ -27,8 +28,9 @@ starlight_patch_$(S2VER)/*.ips: patches/*.slpatch patches/configs/$(S2VER).confi
 	@rm -f starlight_patch_$(S2VER)/*.ips
 	python3 scripts/genPatch.py $(S2VER)
 
+# NOTE: Make sure you configure sendPatch.py to use your login for ftp servers!
 send: all
-	python3.7 scripts/sendPatch.py $(IP) $(S2ROMTYPE) $(S2VER)
+	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) 
 
 clean:
 	$(MAKE) clean -f MakefileNSO

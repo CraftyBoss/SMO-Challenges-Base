@@ -1,131 +1,186 @@
-#include "al/LiveActor/LiveActor.h"
-#include "al/util.hpp"
-#include "al/action/ActionEffectCtrl.h"
-#include "al/sensor/SensorMsg.h"
-#include "game/StageScene/StageScene.h"
-#include "game/Player/PlayerActorHakoniwa.h"
-#include "game/Player/PlayerFunction.h"
-#include "game/Player/CapFunction.h"
-#include "game/GameData/GameDataFunction.h"
-#include "rs/util.hpp"
-#include <cmath>
-#include <stdio.h>
+#include "main.hpp"
 
-#include "sead/math/seadVector.h"
-#include "sead/math/seadMatrix.h"
-#include "sead/gfx/seadColor.h"
-#include "sead/prim/seadSafeString.h"
-#include "sead/textwriter.h"
-#include "sead/devenv/seadDebugFontMgrNvn.h"
-#include "sead/resource/seadResourceMgr.h"
-#include "types.h"
+static bool showMenu = false;
 
-#include "agl/DrawContext.h"
-#include "agl/utl.h"
+static bool isInGame = false;
 
-#include "log.h"
+DebugWarpPoint warpPoints[40];
 
-bool showMenu = false;
-static int deathCount = 0;
+int listCount = 0;
 
+int curWarpPoint = 0;
 
-#define RAD(deg) (deg * (M_PI / 180))
-#define DEG(rad) (rad * (180 / M_PI))
-#define boolToChar(input) (input ? "True" : "False")
+void drawBackground(agl::DrawContext *context)
+{
 
-void stageInitHook(GameDataHolderAccessor holder) {
+    sead::Vector3<float> p1; // top left
+    p1.x = -1.0;
+    p1.y = 0.3;
+    p1.z = 0.0;
+    sead::Vector3<float> p2; // top right
+    p2.x = -0.2;
+    p2.y = 0.3;
+    p2.z = 0.0;
+    sead::Vector3<float> p3; // bottom left
+    p3.x = -1.0;
+    p3.y = -1.0;
+    p3.z = 0.0;
+    sead::Vector3<float> p4; // bottom right
+    p4.x = -0.2;
+    p4.y = -1.0;
+    p4.z = 0.0;
 
-    StageScene *stageScene;
-    __asm ("MOV %[result], X19" : [result] "=r" (stageScene));
+    sead::Color4f c;
+    c.r = 0.1;
+    c.g = 0.1;
+    c.b = 0.1;
+    c.a = 0.9;
 
-    // this init function gets ran every time the player respawns in a stage, so we can do anything here to reset certain values.
-    if((deathCount == 69 || deathCount == 420)) { 
+    agl::utl::DevTools::beginDrawImm(context, sead::Matrix34<float>::ident, sead::Matrix44<float>::ident);
+    agl::utl::DevTools::drawTriangleImm(context, p1, p2, p3, c);
+    agl::utl::DevTools::drawTriangleImm(context, p3, p4, p2, c);
+}
 
-        PlayerActorHakoniwa *player = al::tryGetPlayerActor(al::getScenePlayerHolder(stageScene), 0); // rs::getPlayerActor(stageScene);
+// ------------- Hooks -------------
 
-        al::startSe(player, "AmiiboMario");
-        PlayerFunction::tryActivateAmiiboPreventDamage(player);
-        GameDataFunction::getLifeMaxUpItem(player);
-        al::setPaneStringFormat(stageScene->stageSceneLayout->coinCounter, "TxtDebug", "Nice");
-    }else {
-        al::setPaneStringFormat(stageScene->stageSceneLayout->coinCounter, "TxtDebug", " ");
+al::StageInfo *initDebugListHook(const al::Scene *curScene)
+{
+
+    // hook that gets all objects put in DebugList and adds their coordinates to a warp point array
+
+    al::StageInfo *info = al::getStageInfoMap(curScene, 0);
+
+    al::PlacementInfo rootInfo = al::PlacementInfo();
+
+    al::tryGetPlacementInfoAndCount(&rootInfo, &listCount, info, "DebugList");
+
+    if (listCount > 0)
+    {
+        for (size_t i = 0; i < listCount; i++)
+        {
+            al::PlacementInfo objInfo = al::PlacementInfo();
+
+            al::getPlacementInfoByIndex(&objInfo, rootInfo, i);
+
+            const char *displayName = "";
+            al::tryGetDisplayName(&displayName, objInfo);
+
+            strcpy(warpPoints[i].pointName, displayName);
+
+            al::tryGetTrans(&warpPoints[i].warpPos, objInfo);
+        }
     }
+
+    return info;
 }
 
-// this hook is VERY useful
-sead::Resource *fileReadHook(sead::ResourceMgr *manager, sead::ResourceMgr::LoadArg const &loadArgs, sead::SafeStringBase<char> const &factoryName, sead::Decompressor *decompressor) {
-    LOG("Loading File at Path:\n%s\n", loadArgs.path.cstr());
-    return manager->tryLoad(loadArgs, factoryName, decompressor);
+void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead::DrawContext *drawContext)
+{
+
+    if (!showMenu)
+    {
+        al::executeDraw(curSequence->mLytKit, "２Ｄバック（メイン画面）");
+        return;
+    }
+
+    int dispWidth = al::getLayoutDisplayWidth();
+    int dispHeight = al::getLayoutDisplayHeight();
+
+    gTextWriter->mViewport = viewport;
+
+    gTextWriter->mColor = sead::Color4f(
+        1.f,
+        1.f,
+        1.f,
+        0.8f);
+
+    al::Scene *curScene = curSequence->curScene;
+
+    if (curScene && isInGame)
+    {
+
+        drawBackground((agl::DrawContext *)drawContext);
+
+        gTextWriter->beginDraw();
+
+        gTextWriter->setCursorFromTopLeft(sead::Vector2f(10.f, (dispHeight / 3) + 30.f));
+
+        gTextWriter->setScaleFromFontHeight(20.f);
+
+        gTextWriter->printf("Total Warp Points: %d\n", listCount);
+        gTextWriter->printf("Current Warp Index: %d\n", curWarpPoint);
+        gTextWriter->printf("Current Warp Name: %s\n", warpPoints[curWarpPoint].pointName);
+        gTextWriter->printf("Current Warp Position:\nX: %f\nY: %f\nZ: %f\n", warpPoints[curWarpPoint].warpPos.x, warpPoints[curWarpPoint].warpPos.y, warpPoints[curWarpPoint].warpPos.z);
+
+        isInGame = false;
+    }
+
+    gTextWriter->endDraw();
+
+    al::executeDraw(curSequence->mLytKit, "２Ｄバック（メイン画面）");
 }
 
-void stageSceneHook() {
+void stageInitHook(StageScene *initStageScene, al::SceneInitInfo *sceneInitInfo)
+{
+    __asm("MOV X19, X0");
+    __asm("LDR X24, [X1, #0x18]");
 
-    __asm ("MOV X19, X0");
+    // place any code that needs to be ran during init here (creating actors for example)
+
+    __asm("MOV X1, X24");
+}
+
+ulong threadInit()
+{ // hook for initializing any threads we need
+    __asm("STR X21, [X19,#0x208]");
+
+    return 0x20;
+}
+
+void stageSceneHook()
+{
+
+    __asm("MOV X19, X0");
 
     StageScene *stageScene;
-    __asm ("MOV %[result], X0" : [result] "=r" (stageScene));
+    __asm("MOV %[result], X0"
+          : [result] "=r"(stageScene));
 
     al::PlayerHolder *pHolder = al::getScenePlayerHolder(stageScene);
+    PlayerActorHakoniwa *p1 = al::tryGetPlayerActor(pHolder, 0);
 
-    PlayerActorHakoniwa *player = al::tryGetPlayerActor(pHolder, 0); // rs::getPlayerActor(stageScene);
-
-    al::LiveActor *curHack;
-
-    if(player->mHackKeeper) {
-        curHack = player->mHackKeeper->currentHackActor;
+    if (!isInGame)
+    {
+        isInGame = true;
     }
 
-    HackCap *pCap = player->mHackCap;
+    if (al::isPadTriggerLeft(-1)) // teleport to stage example
+    {
+        ChangeStageInfo info = ChangeStageInfo(stageScene->mHolder, "Ex", "CapWorldHomeStage", false, 1, ChangeStageInfo::SubScenarioType::UNK);
 
-    sead::Vector3f *capScale = al::getScale(pCap);
+        gLogger->LOG("Change Stage ID: %s\n", info.changeStageId.cstr());
+        gLogger->LOG("Change Stage Name: %s\n", info.changeStageName.cstr());
+        gLogger->LOG("Scenario No: %d\n", info.scenarioNo);
+        gLogger->LOG("Wipe Type: %s\n", info.wipeType.cstr());
 
-    sead::Vector3f *playerTrans = al::getTrans(player);
-
-    sead::Vector3f *pScale = al::getScale(player);
-
-    al::CameraDirector *camDirector = player->getCameraDirector();
-    al::Projection *curProjection = al::getProjection(player, 0);
-
-    const char *pCurAct = player->mPlayerAnimator->mAnimFrameCtrl->getActionName();
-
-    static bool isEnable = true;
-
-    static bool hasCountedDeath = false;
-
-    if(PlayerFunction::isPlayerDeadStatus(player)) {
-        if(!hasCountedDeath) {
-            deathCount++;
-            hasCountedDeath = true;
-        }
-    }else {
-        if(hasCountedDeath) {
-            hasCountedDeath = false;
-        }
+        stageScene->mHolder->changeNextStage(&info, 0);
     }
 
-    if(al::isPadTriggerLeft(-1)  || (al::isPadHoldZL(-1) && al::isPadHoldLeft(-1))) {
-        deathCount--;
-        if(deathCount < 0) {
-            deathCount = 9999;
-        }
+    if (al::isPadTriggerUp(-1)) // enables/disables debug menu
+    {
+        showMenu = !showMenu;
     }
 
-    if(al::isPadTriggerRight(-1) || (al::isPadHoldZL(-1) && al::isPadHoldRight(-1))) {
-        deathCount++;
-        if(deathCount > 9999) {
-            deathCount = 0;
-        }
-    }
+    __asm("MOV X0, %[input]"
+          : [input] "=r"(stageScene));
+}
 
-    if(al::isPadTriggerUp(-1)) {
-        
-    }
+void seadPrintHook(const char *fmt, ...) // hook for replacing sead::system::print with our custom logger
+{
+    va_list args;
+    va_start(args, fmt);
 
-    if(al::isPadTriggerUp(-1) && al::isPadHoldZL(-1)) {
-        
-    }
+    gLogger->LOG(fmt, args);
 
-    al::setPaneStringFormat(stageScene->stageSceneLayout->coinCounter, "TxtDeath", "%04d", deathCount);
-
-    __asm ("MOV X0, %[input]" : [input] "=r" (stageScene));
+    va_end(args);
 }

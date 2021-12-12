@@ -12,6 +12,8 @@
 #include <sead/gfx/seadCamera.h>
 #include <sead/gfx/seadViewport.h>
 #include <sead/devenv/seadDebugFontMgrNvn.h>
+#include <sead/devenv/seadFontBase.h>
+#include <sead/gfx/seadColor.h>
 
 namespace sead
 {
@@ -21,15 +23,17 @@ namespace sead
             virtual ~TextWriter();
 
             TextWriter(sead::DrawContext *);
+            TextWriter(sead::DrawContext *, sead::Viewport const *);
 
             void printImpl_(char const*, int, bool, sead::BoundBox2<float>*);
             void printf(char const*, ...);
             void printf(char16_t const*, ...);
             void setScaleFromFontHeight(float);
+            void setCursorFromTopLeft(sead::Vector2<f32> const &);
             void beginDraw();
             void endDraw();
             sead::DebugFontMgrNvn *getDefaultFont();
-            static void setCursorFromTopLeft(sead::Vector2<f32> const &);
+            static void setDefaultFont(sead::FontBase *);
             static void setupGraphics(sead::DrawContext*);
 
 

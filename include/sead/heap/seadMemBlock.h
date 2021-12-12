@@ -1,8 +1,8 @@
 #pragma once
 
-#include "basis/seadTypes.h"
-#include "container/seadListImpl.h"
-#include "container/seadOffsetList.h"
+#include "sead/basis/seadTypes.h"
+#include "sead/container/seadListImpl.h"
+#include "sead/container/seadOffsetList.h"
 
 namespace sead
 {

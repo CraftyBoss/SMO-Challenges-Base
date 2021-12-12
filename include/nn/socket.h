@@ -24,8 +24,9 @@ Result Initialize(void* pool, ulong poolSize, ulong allocPoolSize, int concurLim
 
 s32 SetSockOpt(s32 socket, s32 socketLevel, s32 option, void const*, u32 len);
 
-s32 Socket(s32, s32, s32);
+s32 Socket(s32 domain, s32 type, s32 protocol);
 s32 Connect(s32 socket,	const sockaddr* address, u32 addressLen);
+void Close(s32 socket);
 
 s32 Send(s32 socket, const void* data, ulong dataLen, s32 flags);
 s32 Recv(s32 socket, void* out, ulong outLen, s32 flags);

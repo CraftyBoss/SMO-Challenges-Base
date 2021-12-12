@@ -1,10 +1,8 @@
 #pragma once
 
-#ifdef NNSDK
 #include <nn/os.h>
-#endif
 
-#include "heap/seadDisposer.h"
+#include "sead/heap/seadDisposer.h"
 
 namespace sead
 {
@@ -45,12 +43,8 @@ private:
         mInitialized = initialized;
 #endif
     }
-
-#ifdef NNSDK
+    
     nn::os::SemaphoreType mSemaphoreInner;
-#else
-#error "Unknown platform"
-#endif
 
 #ifdef SEAD_DEBUG
     bool mInitialized = false;

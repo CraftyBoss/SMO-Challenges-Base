@@ -17,6 +17,11 @@ struct Quat : public Policies<T>::QuatBase
         this->w = w;
     }
 
+    constexpr bool operator==(const Quat& rhs) const
+    {
+        return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z && this->w == rhs.w;
+    }
+
     static const Quat unit;
 };
 

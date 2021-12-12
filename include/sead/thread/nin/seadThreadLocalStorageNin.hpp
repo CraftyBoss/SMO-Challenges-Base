@@ -1,8 +1,8 @@
 #ifndef SEAD_THREAD_THREAD_LOCAL_STORAGE_H_
-#include "thread/seadThreadLocalStorage.h"
+#include "sead/thread/seadThreadLocalStorage.h"
 #endif
 
-#include "basis/seadRawPrint.h"
+#include "sead/basis/seadRawPrint.h"
 
 namespace sead
 {

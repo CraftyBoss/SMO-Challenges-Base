@@ -22,11 +22,28 @@ typedef float               f32;
 typedef double              f64;
 
 typedef unsigned long int ulong;
+
+typedef unsigned int        usize_t;
+
+typedef unsigned long int ulong;
 typedef unsigned short int ushort;
 typedef unsigned int uint;
 typedef unsigned char uchar;
 
-typedef unsigned int        usize_t;
+typedef unsigned char   undefined;
+typedef unsigned char    undefined1;
+typedef unsigned short    undefined2;
+typedef unsigned int    undefined3;
+typedef unsigned int    undefined4;
+typedef unsigned long    undefined8;
+
+enum SocketLogState
+{
+    SOCKET_LOG_UNINITIALIZED    = 0,
+    SOCKET_LOG_CONNECTED        = 1,
+    SOCKET_LOG_UNAVAILABLE      = 2
+};
+
 //typedef signed int          ssize_t;
 
 //typedef unsigned int        uintptr_t;

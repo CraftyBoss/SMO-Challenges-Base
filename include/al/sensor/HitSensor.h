@@ -26,7 +26,7 @@ namespace al
 
         const char* mName; // _0
         int _8;
-        float _C;
+        float _unkC;
         float _10;
         float _14;
         float _18;

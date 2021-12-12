@@ -1,10 +1,10 @@
 #pragma once
 
-#include "basis/seadRawPrint.h"
-#include "container/seadFreeList.h"
-#include "prim/seadBitUtil.h"
-#include "prim/seadDelegate.h"
-#include "prim/seadSafeString.h"
+#include "sead/basis/seadRawPrint.h"
+#include "sead/container/seadFreeList.h"
+#include "sead/prim/seadBitUtil.h"
+#include "sead/prim/seadDelegate.h"
+#include "sead/prim/seadSafeString.h"
 
 namespace sead
 {

@@ -1,13 +1,9 @@
 #pragma once
 
-#if defined(cafe)
-#include <cafe.h>
-#elif defined(NNSDK)
 #include <nn/os.h>
-#endif
 
-#include <basis/seadTypes.h>
-#include <heap/seadDisposer.h>
+#include <sead/basis/seadTypes.h>
+#include <sead/heap/seadDisposer.h>
 
 namespace sead
 {
@@ -31,13 +27,7 @@ public:
     // For compatibility with the standard Lockable concept.
     bool try_lock() { return tryLock(); }
 
-#if defined(cafe)
-    OSMutex mMutexInner;
-#elif defined(NNSDK)
     nn::os::MutexType mMutexInner;
-#else
-#error "Unknown platform"
-#endif
 };
 
 }  // namespace sead

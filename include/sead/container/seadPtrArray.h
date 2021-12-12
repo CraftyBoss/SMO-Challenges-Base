@@ -1,11 +1,11 @@
 #ifndef SEAD_PTR_ARRAY_H_
 #define SEAD_PTR_ARRAY_H_
 
-#include <algorithm>
-#include <basis/seadRawPrint.h>
-#include <basis/seadTypes.h>
-#include <prim/seadMemUtil.h>
-#include <random/seadRandom.h>
+//#include <algorithm>
+#include <sead/basis/seadRawPrint.h>
+#include <sead/basis/seadTypes.h>
+#include <sead/prim/seadMemUtil.h>
+#include <sead/random/seadRandom.h>
 
 namespace sead
 {
@@ -156,25 +156,25 @@ protected:
     void insertArray(s32 idx, void* array, s32 array_length, s32 elem_size);
     bool checkInsert(s32 idx, s32 num);
 
-    template <typename T, typename Compare>
-    void sort_(Compare cmp)
-    {
-        // Note: Nintendo did not use <algorithm>
-        std::sort(mPtrs, mPtrs + size(), [&](const void* a, const void* b) {
-            return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
-        });
-    }
+    // template <typename T, typename Compare>
+    // void sort_(Compare cmp)
+    // {
+    //     // Note: Nintendo did not use <algorithm>
+    //     std::sort(mPtrs, mPtrs + size(), [&](const void* a, const void* b) {
+    //         return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
+    //     });
+    // }
 
-    template <typename T, typename Compare>
-    void heapSort_(Compare cmp)
-    {
-        // Note: Nintendo did not use <algorithm>
-        const auto less_cmp = [&](const void* a, const void* b) {
-            return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
-        };
-        std::make_heap(mPtrs, mPtrs + size(), less_cmp);
-        std::sort_heap(mPtrs, mPtrs + size(), less_cmp);
-    }
+    // template <typename T, typename Compare>
+    // void heapSort_(Compare cmp)
+    // {
+    //     // Note: Nintendo did not use <algorithm>
+    //     const auto less_cmp = [&](const void* a, const void* b) {
+    //         return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
+    //     };
+    //     std::make_heap(mPtrs, mPtrs + size(), less_cmp);
+    //     std::sort_heap(mPtrs, mPtrs + size(), less_cmp);
+    // }
 
     void heapSort(CompareCallbackImpl cmp);
 
@@ -245,10 +245,10 @@ public:
 
     using CompareCallback = s32 (*)(const T*, const T*);
 
-    void sort() { sort(compareT); }
-    void sort(CompareCallback cmp) { PtrArrayImpl::sort_<T>(cmp); }
-    void heapSort() { heapSort(compareT); }
-    void heapSort(CompareCallback cmp) { PtrArrayImpl::heapSort_<T>(cmp); }
+    //void sort() { sort(compareT); }
+    //void sort(CompareCallback cmp) { PtrArrayImpl::sort_<T>(cmp); }
+    //void heapSort() { heapSort(compareT); }
+    //void heapSort(CompareCallback cmp) { PtrArrayImpl::heapSort_<T>(cmp); }
 
     bool equal(const PtrArray& other, CompareCallback cmp) const
     {

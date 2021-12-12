@@ -8,12 +8,40 @@
 #include "os.h"
 #include "types.h"
 
+#include "logger.hpp"
+
 namespace nn
 {
     namespace account
     {
-        typedef char Nickname[0x21];
-        typedef u64 Uid[0x2];
+        // typedef char Nickname[0x21];
+        // typedef u64 Uid[0x2];
+
+        struct Nickname {
+            char name[0x21] = {};
+        };
+        struct Uid {
+            char data[0x10] = {};
+
+            constexpr bool operator==(const Uid &rhs) const {
+                return memcmp(data, rhs.data, 0x10) == 0;
+            }
+
+            constexpr Uid& operator=(const Uid& other)
+            {
+                memcpy(this->data, other.data, 0x10);
+                return *this;
+            }
+
+            inline void print() {
+                gLogger->LOG("Player ID: 0x");
+                gLogger->isDisableName = true;
+                for (size_t i = 0; i < 0x10; i++) { gLogger->LOG("%02X", data[i]); }
+                gLogger->LOG("\n");
+                gLogger->isDisableName = false;
+            }
+        };
+
         typedef u64 NetworkServiceAccountId;
         
         class AsyncContext;

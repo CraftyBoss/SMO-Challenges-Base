@@ -4,20 +4,20 @@
 #include <nn/os.h>
 #endif
 
-#include <basis/seadRawPrint.h>
-#include <container/seadTList.h>
-#include <heap/seadDisposer.h>
-#include <heap/seadHeapMgr.h>
-#include <hostio/seadHostIONode.h>
-#include <hostio/seadHostIOReflexible.h>
-#include <mc/seadCoreInfo.h>
-#include <prim/seadEnum.h>
-#include <prim/seadNamable.h>
-#include <prim/seadSafeString.h>
-#include <prim/seadScopedLock.h>
-#include <thread/seadMessageQueue.h>
-#include <thread/seadThreadLocalStorage.h>
-#include <time/seadTickSpan.h>
+#include "sead/basis/seadRawPrint.h"
+#include "sead/container/seadTList.h"
+#include "sead/heap/seadDisposer.h"
+#include "sead/heap/seadHeapMgr.h"
+#include "sead/hostio/seadHostIONode.h"
+#include "sead/hostio/seadHostIOReflexible.h"
+#include "sead/mc/seadCoreInfo.h"
+#include "sead/prim/seadEnum.h"
+#include "sead/prim/seadNamable.h"
+#include "sead/prim/seadSafeString.h"
+#include "sead/prim/seadScopedLock.h"
+#include "sead/thread/seadMessageQueue.h"
+#include "sead/thread/seadThreadLocalStorage.h"
+#include "sead/time/seadTickSpan.h"
 
 namespace sead
 {

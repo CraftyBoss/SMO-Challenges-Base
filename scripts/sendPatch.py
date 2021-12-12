@@ -3,18 +3,11 @@ import os
 import sys
 
 titleIdLookup = {
-    "JP": '01003C700009C000',
-    "US": '01003BC0000A0000',
-    "EU": '0100F8F0000A2000',
-    'EveJP': '0100D070040F8000',
-    'EveUS': '01003870040FA000',
-    'EveEU': '010086F0040FC000',
-    'TrialUS': '01006BB00D45A000',
-    'ShowDL': '010000A00218E000'
+    "US": '0100000000010000'
 }
 
-
 def listdirs(connection,_path):
+
     file_list, dirs, nondirs = [], [], []
     try:
         connection.cwd(_path)
@@ -44,29 +37,28 @@ if '.' not in consoleIP:
 
 consolePort = 5000
 
-if len(sys.argv) < 3:
-    romType = 'US'
+if len(sys.argv) < 2:
+    projName = 'StarlightBase'
 else:
-    romType = sys.argv[2]
-
-if len(sys.argv) < 4:
-    version = '100'
-else:
-    version = sys.argv[3]
+    projName = sys.argv[1]
 
 curDir = os.curdir
 
 ftp = FTP()
+
 print(f'Connecting to {consoleIP}... ', end='')
 ftp.connect(consoleIP, consolePort)
+print('logging into server...', end='')
+ftp.login('username','password') # put username and password in here
 print('Connected!')
 
 patchDirectories = []
 
 root, dirs, _ = next(os.walk(curDir))
+
 for dir in dirs:
     if dir.startswith("starlight_patch_"):
-        patchDirectories.append((os.path.join(root, dir), dir))
+        patchDirectories.append((os.path.join(root, f'{dir}/atmosphere/exefs_patches/{projName}'), projName))
 
 ensuredirectory(ftp, '', 'atmosphere')
 ensuredirectory(ftp, '/atmosphere', 'exefs_patches')
@@ -79,16 +71,23 @@ for patchDir in patchDirectories:
     for file in files:
         fullPath = os.path.join(dirPath, file)
         if os.path.exists(fullPath):
-            sdPath = f'/atmosphere/exefs_patches/{dirName}/{file}'
-            print(f'Sending {sdPath}')
+            sdPath = f'/atmosphere/exefs_patches/{projName}/{file}'
+            print(f'Sending "{sdPath}" to {consoleIP}.')
             ftp.storbinary(f'STOR {sdPath}', open(fullPath, 'rb'))
+            if isNeedOtherSwitch:
+                print(f'Sending "{sdPath}" to {altSwitchIP}.')
+                otherftp.storbinary(f'STOR {sdPath}', open(fullPath, 'rb'))
 
-ensuredirectory(ftp, '/atmosphere', 'titles')
-ensuredirectory(ftp, '/atmosphere/titles', titleIdLookup[romType])
-ensuredirectory(ftp, f'/atmosphere/titles/{titleIdLookup[romType]}', 'exefs')
+ensuredirectory(ftp, '/atmosphere', 'contents')
+ensuredirectory(ftp, '/atmosphere/contents', '0100000000010000')
+ensuredirectory(ftp, f'/atmosphere/contents/0100000000010000', 'exefs')
 
-binaryPath = f'{os.path.basename(os.getcwd())}{version}.nso'
+binaryPath = f'starlight_patch_100/atmosphere/contents/0100000000010000/exefs/subsdk1'
+
 if os.path.isfile(binaryPath):
-    sdPath = f'/atmosphere/titles/{titleIdLookup[romType]}/exefs/subsdk0'
-    print(f'Sending {sdPath}')
+    sdPath = f'/atmosphere/contents/0100000000010000/exefs/subsdk1'
+    print(f'Sending "{sdPath}" to {consoleIP}.')
     ftp.storbinary(f'STOR {sdPath}', open(binaryPath, 'rb'))
+    if isNeedOtherSwitch:
+        print(f'Sending "{sdPath}" to {altSwitchIP}.')
+        otherftp.storbinary(f'STOR {sdPath}', open(binaryPath, 'rb'))

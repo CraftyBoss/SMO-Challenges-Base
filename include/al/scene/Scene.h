@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game/GameData/GameDataHolderAccessor.h"
+#include "SceneInitInfo.h"
 #include <al/nerve/NerveExecutor.h>
 #include "al/audio/AudioKeeper.h"
 #include "al/camera/CameraDirector.h"
@@ -8,12 +9,6 @@
 
 namespace al
 {
-    class SceneInitInfo
-    {
-    public:
-        // todo
-    };
-
     class Scene : public al::NerveExecutor, public al::IUseAudioKeeper, public al::IUseCamera, public al::IUseSceneObjHolder
     {
     public:

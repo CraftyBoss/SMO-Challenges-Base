@@ -6,6 +6,7 @@
 #pragma once
 
 #include "al/scene/Scene.h"
+#include "al/scene/SceneObjHolder.h"
 #include "types.h"
 #include "GameDataHolderBase.h"
 #include "GameDataHolderWriter.h"

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "SendMsg.h"
+
 namespace al
 {
-    class SensorMsg {
-
+    class SensorMsg
+    {
     };
 } // namespace al

@@ -11,5 +11,7 @@
 
 class PlayerActorBase : public al::LiveActor , public IUsePlayerHack {
     public: 
-        PlayerHackKeeper *getPlayerHackKeeper() const; // this function returns wzr, probably shouldnt keep it 
+        PlayerHackKeeper *getPlayerHackKeeper() const; 
+        void movement(void);
+        
 };

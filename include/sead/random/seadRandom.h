@@ -1,8 +1,8 @@
 #pragma once
 
-#include "basis/seadRawPrint.h"
-#include "basis/seadTypes.h"
-#include "prim/seadBitUtil.h"
+#include "sead/basis/seadRawPrint.h"
+#include "sead/basis/seadTypes.h"
+#include "sead/prim/seadBitUtil.h"
 
 namespace sead
 {

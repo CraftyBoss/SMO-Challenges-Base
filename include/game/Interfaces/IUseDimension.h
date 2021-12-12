@@ -5,6 +5,9 @@
 * Vtable loc: 
 */
 
-class IUseDimension {
+#include "al/actor/ActorDimensionKeeper.h"
 
+class IUseDimension {
+    public:
+        virtual ActorDimensionKeeper *getActorDimensionKeeper() = 0;
 };
