@@ -1,13 +1,10 @@
 {
     global:
         _Z14stageSceneHookv;
-<<<<<<< HEAD
         _Z14setupDebugMenuP10GameSystem;
         _Z12drawMainHookP16HakoniwaSequencePN4sead8ViewportEPNS1_11DrawContextE;
         _Z13seadPrintHookPKcz;
         _Z10threadInitv;
-=======
->>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
         _Z13stageInitHookP10StageScenePN2al13SceneInitInfoE;
         _Z13tryInitSocketv;
         _Z13seadPrintHookPKcz;
