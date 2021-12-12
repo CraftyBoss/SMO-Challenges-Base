@@ -38,12 +38,21 @@ void SocketBase::set_sock_flags(int flags) {
     this->sock_flags = flags;
 }
 
+<<<<<<< HEAD
 s32 SocketBase::socket_log(const char* str)
 {
     if (this->socket_log_state != SOCKET_LOG_CONNECTED)
         return -1;
 
     return nn::socket::Send(this->socket_log_socket, str, strlen(str), 0);
+=======
+void SocketBase::socket_log(const char* str)
+{
+    if (this->socket_log_state != SOCKET_LOG_CONNECTED)
+        return;
+
+    nn::socket::Send(this->socket_log_socket, str, strlen(str), 0);
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 }
 
 s32 SocketBase::socket_read_char(char *out) {

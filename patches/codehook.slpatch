@@ -1,7 +1,10 @@
 [version=100, target=main]
 StageScene::control+18:
     BL stageSceneHook
+<<<<<<< HEAD
 
+=======
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 4C8648: // hook to the init of a stage to modify certain conditions (we also have access to SceneInitInfo)
     BL stageInitHook
 
@@ -10,6 +13,7 @@ StageScene::control+18:
     BL tryInitSocket
 B59E28: // sead::system::print
     B seadPrintHook
+<<<<<<< HEAD
 5359DC:
     MOV X0, X19 // move GameSystem to arg register
     BL setupDebugMenu
@@ -22,12 +26,19 @@ B59E28: // sead::system::print
 
 //50E89C:
 //    BL threadInit
+=======
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 
 //4C8958:
 //    BL initDebugListHook
 
+<<<<<<< HEAD
 1B3F0C: // disables call to open HTML viewer during first time odyssey flight
     NOP
+=======
+50E89C:
+    BL threadInit
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 
 1F2A2C: // patches checkpoint system to always allow warping
     MOV W0, #1

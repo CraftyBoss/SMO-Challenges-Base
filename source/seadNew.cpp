@@ -25,6 +25,7 @@ void* operator new[](size_t size)
     return sead::system::NewImpl(nullptr, size, 8, true);
 }
 
+<<<<<<< HEAD
 void* operator new(size_t size, const std::nothrow_t&) noexcept
 {
     return sead::system::NewImpl(nullptr, size, 8, false);
@@ -35,6 +36,8 @@ void* operator new[](size_t size, const std::nothrow_t&) noexcept
     return sead::system::NewImpl(nullptr, size, 8, false);
 }
 
+=======
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 // operator new(size_t, s32 alignment)
 
 void* operator new(size_t size, s32 alignment)
@@ -47,6 +50,7 @@ void* operator new[](size_t size, s32 alignment)
     return sead::system::NewImpl(nullptr, size, alignment, true);
 }
 
+<<<<<<< HEAD
 void* operator new(size_t size, s32 alignment, const std::nothrow_t&) noexcept
 {
     return sead::system::NewImpl(nullptr, size, alignment, false);
@@ -57,6 +61,8 @@ void* operator new[](size_t size, s32 alignment, const std::nothrow_t&) noexcept
     return sead::system::NewImpl(nullptr, size, alignment, false);
 }
 
+=======
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 // operator new(size_t, sead::Heap*, s32 alignment)
 
 void* operator new(size_t size, sead::Heap* heap, s32 alignment)
@@ -69,6 +75,7 @@ void* operator new[](size_t size, sead::Heap* heap, s32 alignment)
     return sead::system::NewImpl(heap, size, alignment, true);
 }
 
+<<<<<<< HEAD
 void* operator new(size_t size, sead::Heap* heap, s32 alignment, const std::nothrow_t&) noexcept
 {
     return sead::system::NewImpl(heap, size, alignment, false);
@@ -91,6 +98,10 @@ void* operator new[](size_t size, sead::Heap* heap, const std::nothrow_t&) noexc
     return sead::system::NewImpl(heap, size, 8, false);
 }
 
+=======
+// operator new(size_t, sead::Heap*, const std::nothrow_t&)
+
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 // operator delete(void*)
 
 void operator delete(void* ptr) noexcept
@@ -103,6 +114,7 @@ void operator delete[](void* ptr) noexcept
     sead::system::DeleteImpl(ptr);
 }
 
+<<<<<<< HEAD
 void operator delete(void* ptr, const std::nothrow_t&) noexcept
 {
     sead::system::DeleteImpl(ptr);
@@ -113,6 +125,8 @@ void operator delete[](void* ptr, const std::nothrow_t&) noexcept
     sead::system::DeleteImpl(ptr);
 }
 
+=======
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 // operator delete(void*, s32)
 
 void operator delete(void* ptr, s32)
@@ -125,6 +139,7 @@ void operator delete[](void* ptr, s32)
     sead::system::DeleteImpl(ptr);
 }
 
+<<<<<<< HEAD
 void operator delete(void* ptr, s32, const std::nothrow_t&) noexcept
 {
     sead::system::DeleteImpl(ptr);
@@ -147,6 +162,10 @@ void operator delete[](void* ptr, sead::Heap*, const std::nothrow_t&) noexcept
     sead::system::DeleteImpl(ptr);
 }
 
+=======
+// operator delete(void*, sead::Heap*, const std::nothrow_t&)
+
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 // operator delete(void*, sead::Heap*, s32)
 
 void operator delete(void* ptr, sead::Heap*, s32)
@@ -157,6 +176,7 @@ void operator delete(void* ptr, sead::Heap*, s32)
 void operator delete[](void* ptr, sead::Heap*, s32)
 {
     sead::system::DeleteImpl(ptr);
+<<<<<<< HEAD
 }
 
 void operator delete(void* ptr, sead::Heap*, s32, const std::nothrow_t&) noexcept
@@ -167,4 +187,6 @@ void operator delete(void* ptr, sead::Heap*, s32, const std::nothrow_t&) noexcep
 void operator delete[](void* ptr, sead::Heap*, s32, const std::nothrow_t&) noexcept
 {
     sead::system::DeleteImpl(ptr);
+=======
+>>>>>>> d9f97d1785079d0fc96363d314c2b13c6bd6c5f2
 }
