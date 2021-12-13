@@ -1,12 +1,6 @@
-# Starlight — SMO Example
+# Starlight — SMO Base Project
 
-This repo contains a barebones example of a Super Mario Odyssey v1.0.0 mod written (for the most part) in C++.
-It is a fork of [Starlight](https://github.com/shadowninja108/Starlight), an awesome project geared toward mod creation for Splatoon 2.
-
-The mod itself is the same as the one in [Responding to Controller Inputs in Super Mario Odyssey](https://brycewithfiveunderscores.com/posts/accessing-controls/) (teleport Mario to y=0 on Left D-Pad press), so as to act as a good comparison between an assembly-based implementation and a C++ one.
-
-The changes in this fork are made incrementally & intentionally, with the goal of being a working example of what specifically needs to be updated in Starlight in order to adapt it to other games. You can see the required steps in the form of
-[Pull Requests](https://github.com/brycewithfiveunderscores/Starlight-SMO-Example/pulls?q=label%3Ainitial-change+sort%3Acreated-asc), each of which has a description of the change, and occasionally code review comments describing specific details.
+This repo contains a base project that can be used to create code modifications for Super Mario Odyssey v1.0.0. It's main purpose is to give people a project that contains headers that can be used to more easily create mods that does more to the game than what can normally be done through romfs editing alone. it also contains example code to show how to do certain things within the starlight environment.
 
 ## Prerequisites
 
