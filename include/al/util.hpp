@@ -130,9 +130,15 @@ namespace al
 
     char const *getActionName(al::LiveActor const *);
 
-    char const *getActionFrame(al::LiveActor const *);
+    float getActionFrame(al::LiveActor const *);
+
+    int getActionFrameMax(al::LiveActor const *);
+
+    bool isActionEnd(al::LiveActor const *);
 
     // setters
+
+    void setActionFrameRate(al::LiveActor *, float);
 
     void setTransY(al::LiveActor *, float);
 

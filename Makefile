@@ -7,6 +7,8 @@ S2VER ?= 100
 S2VERSTR ?= 1.0.0
 S2ROMTYPE ?= US
 IP ?= 0.0.0.0 # Put Switch IP Here (for make send)
+USER ?= user # Put username here (for make send)
+PASS ?= name # put password here (for make send)
 
 PROJNAME ?= StarlightBase
 
@@ -30,7 +32,7 @@ starlight_patch_$(S2VER)/*.ips: patches/*.slpatch patches/configs/$(S2VER).confi
 
 # NOTE: Make sure you configure sendPatch.py to use your login for ftp servers!
 send: all
-	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) 
+	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
 
 clean:
 	$(MAKE) clean -f MakefileNSO

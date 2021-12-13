@@ -14,6 +14,18 @@ The changes in this fork are made incrementally & intentionally, with the goal o
 - Python 3
 - The [Keystone-Engine](https://www.keystone-engine.org/) Python Module
 
+## Configuration and Setup
+
+Before Building, you should make sure that the default things for the project is properly setup. 
+
+For the TCP Logger, you can define `GLOBALDEBUGIP` to set the IP address used for connecting the socket to a server hosted on your local machine.
+
+In the makefile, you can set `IP`, `USER`, and `PASS` to their respective values in order to automatically send builds to an FTP server hosted on a modded switch. Then, whenever you run `make send` you'll build the project and immediately send to the switch.
+
+Creating a custom actor is straight forward thankfully, and there is an example actor in this repository if you wish to start from one already proven working. To add more custom actors, firs you'll need to create the custom actors header and c++ files in their respective folders. Then, create a class that extends `al::LiveActor` and implement the virtual functions used in the example actor. You can then define nerves by using the `NERVE_IMPL` and `NERVE_HEADER` macros used in the [OdysseyDecomp](https://github.com/MonsterDruide1/OdysseyDecomp) project, which I included here for easy nerve defines. Then, after creating your actor, navigate to `al/factory/ActorFactoryEntries100.h` and add in the name of your class, as well as its creation function (do this by simply using al::createCustomActor&ltType&gt in the second parameter for factory entries) to the static table of actor creators. 
+
+Once you've handled most of the code for the custom actor, you can either copy an existing object archive from SMO and edit it to your liking, or create an entirely new archive, so long as the archive contains the minimum Init bymls required for an actor (most of the time its InitModel.byml, InitPose.byml, InitClipping.byml, InitExecutor.byml, and InitMaterialLight.byml), and a BFRES model if your actor needs it. Once done, save the archive, and add your custom actor to a stage you wish to have the actor in. From there everything should work and you'll have a custom actor working in Odyssey!
+
 ## Building
 
 Build has only been tested on WSL2 running Ubuntu 20.04.1.

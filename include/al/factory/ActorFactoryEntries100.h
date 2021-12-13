@@ -69,7 +69,9 @@ namespace al
 } // namespace al
 
 static al::FactoryEntry<al::createActor> actorEntries[] = {
-    {"DeathBlockBrick", &al::createCustomActor<cal::DeathBlockBrick>},
+    // CUSTOM ACTOR ENTRIES HERE
+    {"BlockShine", &al::createCustomActor<ca::BlockShine>},
+    // VANILLA ACTOR ENTRIES
     {"AchievementNpc", &al::createActorFunction<class AchievementNpc>},
     {"AirBubble", &al::createActorFunction<class AirBubble>},
     {"AirBubbleGenerator", &al::createActorFunction<class AirBubbleGenerator>},

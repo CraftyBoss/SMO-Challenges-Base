@@ -4,13 +4,13 @@
 #include "al/util/NerveUtil.h"
 #include "logger.hpp"
 
-// cal = custom actor libray
-namespace cal
+// ca = custom actor(s)
+namespace ca
 {
-    class DeathBlockBrick : public al::LiveActor
+    class BlockShine : public al::LiveActor
     {
     public:
-        DeathBlockBrick(const char *name);
+        BlockShine(const char *name);
         virtual void init(al::ActorInitInfo const &) override;
         virtual void initAfterPlacement(void) override;
         virtual bool receiveMsg(const al::SensorMsg *message, al::HitSensor *source, al::HitSensor *target) override;
@@ -18,13 +18,17 @@ namespace cal
         virtual void control(void) override;
 
         void exeWait();
+        void exeReaction();
+        void exeReactionHipDrop();
         void exeDead();
     };
 
     namespace
     {
-        NERVE_HEADER(DeathBlockBrick, Wait)
-        NERVE_HEADER(DeathBlockBrick, Dead)
+        NERVE_HEADER(BlockShine, Wait)
+        NERVE_HEADER(BlockShine, Dead)
+        NERVE_HEADER(BlockShine, Reaction)
+        NERVE_HEADER(BlockShine, ReactionHipDrop)
     }
 
 }

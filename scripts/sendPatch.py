@@ -37,10 +37,9 @@ if '.' not in consoleIP:
 
 consolePort = 5000
 
-if len(sys.argv) < 2:
-    projName = 'StarlightBase'
-else:
-    projName = sys.argv[1]
+projName = sys.argv[2]
+username = sys.argv[3]
+password = sys.argv[4]
 
 curDir = os.curdir
 
@@ -49,7 +48,7 @@ ftp = FTP()
 print(f'Connecting to {consoleIP}... ', end='')
 ftp.connect(consoleIP, consolePort)
 print('logging into server...', end='')
-ftp.login('username','password') # put username and password in here
+ftp.login(username, password)
 print('Connected!')
 
 patchDirectories = []
@@ -74,9 +73,6 @@ for patchDir in patchDirectories:
             sdPath = f'/atmosphere/exefs_patches/{projName}/{file}'
             print(f'Sending "{sdPath}" to {consoleIP}.')
             ftp.storbinary(f'STOR {sdPath}', open(fullPath, 'rb'))
-            if isNeedOtherSwitch:
-                print(f'Sending "{sdPath}" to {altSwitchIP}.')
-                otherftp.storbinary(f'STOR {sdPath}', open(fullPath, 'rb'))
 
 ensuredirectory(ftp, '/atmosphere', 'contents')
 ensuredirectory(ftp, '/atmosphere/contents', '0100000000010000')
@@ -88,6 +84,3 @@ if os.path.isfile(binaryPath):
     sdPath = f'/atmosphere/contents/0100000000010000/exefs/subsdk1'
     print(f'Sending "{sdPath}" to {consoleIP}.')
     ftp.storbinary(f'STOR {sdPath}', open(binaryPath, 'rb'))
-    if isNeedOtherSwitch:
-        print(f'Sending "{sdPath}" to {altSwitchIP}.')
-        otherftp.storbinary(f'STOR {sdPath}', open(binaryPath, 'rb'))

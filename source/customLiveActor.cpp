@@ -1,10 +1,10 @@
 #include "customLiveActor.hpp"
 
-namespace cal
+namespace ca
 {
-    DeathBlockBrick::DeathBlockBrick(const char *name) : al::LiveActor(name) {}
+    BlockShine::BlockShine(const char *name) : al::LiveActor(name) {}
 
-    void DeathBlockBrick::init(al::ActorInitInfo const &info)
+    void BlockShine::init(al::ActorInitInfo const &info)
     {
 
         al::initMapPartsActor(this, info, nullptr);
@@ -14,28 +14,34 @@ namespace cal
         this->makeActorAlive();
     }
 
-    void DeathBlockBrick::initAfterPlacement(void)
+    void BlockShine::initAfterPlacement(void)
     {
         return;
     }
 
-    bool DeathBlockBrick::receiveMsg(const al::SensorMsg *message, al::HitSensor *source, al::HitSensor *target)
+    bool BlockShine::receiveMsg(const al::SensorMsg *message, al::HitSensor *source, al::HitSensor *target)
     {
-        if (al::isSensorPlayerAttack(target))
+        if (rs::isMsgUpperPunchAll(message))
         {
-            // do something
+            al::setNerve(this, &nrvReaction);
+            return true;
+        }
+        else if (rs::isMsgPlayerAndCapHipDropAll(message))
+        {
+            al::setNerve(this, &nrvReactionHipDrop);
+            return true;
         }
         return false;
     }
 
-    bool DeathBlockBrick::attackSensor(al::HitSensor *target, al::HitSensor *source)
+    bool BlockShine::attackSensor(al::HitSensor *target, al::HitSensor *source)
     {
         return false;
     }
 
-    void DeathBlockBrick::control(void) { return; }
+    void BlockShine::control(void) { return; }
 
-    void DeathBlockBrick::exeWait()
+    void BlockShine::exeWait()
     {
         if (al::isFirstStep(this))
         {
@@ -43,18 +49,46 @@ namespace cal
         }
     }
 
-    void DeathBlockBrick::exeDead()
+    void BlockShine::exeReaction()
     {
         if (al::isFirstStep(this))
         {
-            // do something
+            al::startAction(this, "Reaction");
+            al::setActionFrameRate(this, 0.6);
+        }
+        else if (al::isActionEnd(this))
+        {
+            al::setNerve(this, &nrvDead);
+        }
+    }
+
+    void BlockShine::exeReactionHipDrop()
+    {
+        if (al::isFirstStep(this))
+        {
+            al::startAction(this, "ReactionHipDrop");
+            al::setActionFrameRate(this, 0.6);
+        }
+        else if (al::isActionEnd(this))
+        {
+            al::setNerve(this, &nrvDead);
+        }
+    }
+
+    void BlockShine::exeDead()
+    {
+        if (al::isFirstStep(this))
+        {
+            this->kill();
         }
     }
 
     namespace
     {
-        NERVE_IMPL(DeathBlockBrick, Wait)
-        NERVE_IMPL(DeathBlockBrick, Dead)
+        NERVE_IMPL(BlockShine, Wait)
+        NERVE_IMPL(BlockShine, Reaction)
+        NERVE_IMPL(BlockShine, ReactionHipDrop)
+        NERVE_IMPL(BlockShine, Dead)
     } // namespace
 
 } // namespace cal
