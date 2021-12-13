@@ -12,7 +12,7 @@ This repo contains a base project that can be used to create code modifications 
 
 Before Building, you should make sure that the default things for the project is properly setup. 
 
-For the TCP Logger, you can define `GLOBALDEBUGIP` to set the IP address used for connecting the socket to a server hosted on your local machine.
+For the TCP Logger, you can define `GLOBALDEBUGIP` to set the IP address used for connecting the socket to a server hosted on your local machine. (Note: the port can be easily changed in logger.cpp, its default value is 3080.)
 
 In the makefile, you can set `IP`, `USER`, and `PASS` to their respective values in order to automatically send builds to an FTP server hosted on a modded switch. Then, whenever you run `make send` you'll build the project and immediately send to the switch.
 
