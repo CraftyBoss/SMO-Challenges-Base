@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-static bool showMenu = false;
+static bool showMenu = true;
 
 static bool isInGame = false;
 
@@ -107,10 +107,18 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
 
         gTextWriter->setScaleFromFontHeight(20.f);
 
-        gTextWriter->printf("Total Warp Points: %d\n", listCount);
-        gTextWriter->printf("Current Warp Index: %d\n", curWarpPoint);
-        gTextWriter->printf("Current Warp Name: %s\n", warpPoints[curWarpPoint].pointName);
-        gTextWriter->printf("Current Warp Position:\nX: %f\nY: %f\nZ: %f\n", warpPoints[curWarpPoint].warpPos.x, warpPoints[curWarpPoint].warpPos.y, warpPoints[curWarpPoint].warpPos.z);
+        if(ca::bombInstance) {
+
+            gTextWriter->printf("Current Action: %s\n", al::getActionName(ca::bombInstance));
+
+            sead::Vector3f *curPos = al::getTrans(ca::bombInstance);
+
+            gTextWriter->printf("Togezo X: %f\n", curPos->x);
+            gTextWriter->printf("Togezo Y: %f\n", curPos->y);
+            gTextWriter->printf("Togezo Z: %f\n", curPos->z);
+
+            gTextWriter->printf("Explosion Timer: %d\n", ca::bombInstance->explodeTimer);
+        }
 
         isInGame = false;
     }
@@ -154,16 +162,13 @@ void stageSceneHook()
         isInGame = true;
     }
 
-    if (al::isPadTriggerLeft(-1)) // teleport to stage example
+    if (al::isPadTriggerLeft(-1))
     {
-        ChangeStageInfo info = ChangeStageInfo(stageScene->mHolder, "Ex", "CapWorldHomeStage", false, 1, ChangeStageInfo::SubScenarioType::UNK);
-
-        gLogger->LOG("Change Stage ID: %s\n", info.changeStageId.cstr());
-        gLogger->LOG("Change Stage Name: %s\n", info.changeStageName.cstr());
-        gLogger->LOG("Scenario No: %d\n", info.scenarioNo);
-        gLogger->LOG("Wipe Type: %s\n", info.wipeType.cstr());
-
-        stageScene->mHolder->changeNextStage(&info, 0);
+        if(ca::bombInstance) {
+            if(al::isDead(ca::bombInstance)) {
+                ca::bombInstance->makeActorAlive();
+            }
+        }
     }
 
     if (al::isPadTriggerUp(-1)) // enables/disables debug menu

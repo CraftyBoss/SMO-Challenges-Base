@@ -14,7 +14,7 @@ namespace ca
         virtual void init(al::ActorInitInfo const &) override;
         virtual void initAfterPlacement(void) override;
         virtual bool receiveMsg(const al::SensorMsg *message, al::HitSensor *source, al::HitSensor *target) override;
-        virtual bool attackSensor(al::HitSensor *source, al::HitSensor *target) override;
+        virtual void attackSensor(al::HitSensor *source, al::HitSensor *target) override;
         virtual void control(void) override;
 
         void exeWait();

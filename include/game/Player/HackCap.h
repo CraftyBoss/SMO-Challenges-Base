@@ -134,7 +134,7 @@ public:
     void endHackThrowAndReturnHackOrHide(void);
     void clearThrowType(void);
     void calcReturnTargetPos(sead::Vector3f *);
-    bool attackSensor(al::HitSensor *, al::HitSensor *);
+    void attackSensor(al::HitSensor *, al::HitSensor *);
     void stayRollingOrReflect(void);
     bool receiveMsg(al::SensorMsg const *, al::HitSensor *, al::HitSensor *);
     void endMove(void);

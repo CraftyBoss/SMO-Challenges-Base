@@ -21,6 +21,8 @@
 #include "game/Actors/Shine.h"
 #include "game/HakoniwaSequence/HakoniwaSequence.h"
 
+#include "actors/BombHei.hpp"
+
 #include "rs/util.hpp"
 
 #include "sead/math/seadVector.h"

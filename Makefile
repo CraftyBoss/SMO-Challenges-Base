@@ -6,9 +6,9 @@
 S2VER ?= 100
 S2VERSTR ?= 1.0.0
 S2ROMTYPE ?= US
-IP ?= 0.0.0.0 # Put Switch IP Here (for make send)
-USER ?= user # Put username here (for make send)
-PASS ?= name # put password here (for make send)
+IP ?= 10.0.0.222 # Put Switch IP Here (for make send)
+USER ?= crafty # Put username here (for make send)
+PASS ?= boss # put password here (for make send)
 
 PROJNAME ?= StarlightBase
 

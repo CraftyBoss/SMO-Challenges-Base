@@ -4,15 +4,15 @@
 #include "al/nerve/NerveStateBase.h"
 
 #define NERVE_HEADER(Class, Action) \
-    class Class ## Nrv ## Action : public al::Nerve { \
+    class Class##Nrv##Action : public al::Nerve { \
     public: \
         void execute(al::NerveKeeper*) override; \
     }; \
-    Class ## Nrv ## Action nrv ## Action;
+    Class##Nrv##Action nrv##Class##Action;
 
-#define NERVE_IMPL_(Class, Action, ActionFunc) \
-    void Class ## Nrv ## Action::execute(al::NerveKeeper* keeper) { \
-        static_cast<Class*>(keeper->mParent)->exe ## ActionFunc(); \
+#define NERVE_IMPL_(Class, Action, ActionFunc)                                                     \
+    void Class##Nrv##Action::execute(al::NerveKeeper* keeper) {                                    \
+        static_cast<Class*>(keeper->mParent)->exe##ActionFunc();                                   \
     }
 #define NERVE_IMPL(Class, Action) NERVE_IMPL_(Class, Action, Action)
 
@@ -20,6 +20,7 @@ namespace al
 {
     void setNerve(al::IUseNerve *, const al::Nerve *);
     void setNerveAtStep(al::IUseNerve *, const al::Nerve *, int);
+    void setNerveAtActionEnd(al::IUseNerve *, const al::Nerve *);
     bool isStep(const al::IUseNerve *, int);
     void setNerveAtGreaterEqualStep(al::IUseNerve *, const al::Nerve *, int);
     bool isGreaterEqualStep(const al::IUseNerve *, int);
@@ -42,7 +43,7 @@ namespace al
     void initNerveState(al::IUseNerve *, al::NerveStateBase *, const al::Nerve *, const char *);
     void initNerve(al::LiveActor *, const al::Nerve *, int);
     void addNerveState(al::IUseNerve *, al::NerveStateBase *, const al::Nerve *, const char *);
-    void updateNerveState(al::IUseNerve *);
+    bool updateNerveState(al::IUseNerve *);
     bool updateNerveStateAndNextNerve(al::IUseNerve *, const al::Nerve *);
     bool isStateEnd(const al::IUseNerve *);
 };

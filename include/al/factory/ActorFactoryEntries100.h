@@ -4,7 +4,8 @@
 
 #include "game/Actors/Shine.h"
 
-#include "customLiveActor.hpp"
+#include "actors/BlockShine.hpp"
+#include "actors/BombHei.hpp"
 
 namespace al
 {
@@ -71,6 +72,7 @@ namespace al
 static al::FactoryEntry<al::createActor> actorEntries[] = {
     // CUSTOM ACTOR ENTRIES HERE
     {"BlockShine", &al::createCustomActor<ca::BlockShine>},
+    {"CustomTogezo", &al::createCustomActor<ca::BombHei>},
     // VANILLA ACTOR ENTRIES
     {"AchievementNpc", &al::createActorFunction<class AchievementNpc>},
     {"AirBubble", &al::createActorFunction<class AirBubble>},

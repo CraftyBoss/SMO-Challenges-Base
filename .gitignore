@@ -16,6 +16,7 @@
 *.ips
 *.lst
 .vscode/
+.cache/
 build*/
 debug/
 release/
@@ -25,3 +26,5 @@ starlight_patch*/
 scripts/.idea/*
 include/privateIps.hpp
 !exported.txt
+custom actor models/*
+compile_commands.json

@@ -32,7 +32,7 @@ class PlayerActorHakoniwa : public PlayerActorBase, public IUseDimension
 public:
     int *getPortNo(void) const;
     PlayerHackKeeper *getPlayerHackKeeper() const;
-    bool attackSensor(al::HitSensor *target, al::HitSensor *source);
+    void attackSensor(al::HitSensor *target, al::HitSensor *source);
     void startDemoPuppetable(void);
     void startPlayerPuppet(void);
     void initPlayer(al::ActorInitInfo const &, PlayerInitInfo const &);

@@ -60,7 +60,7 @@ namespace al
         virtual void draw() const;
         virtual void startClipped();
         virtual void endClipped();
-        virtual bool attackSensor(HitSensor *, HitSensor *);
+        virtual void attackSensor(HitSensor *, HitSensor *);
         virtual bool receiveMsg(const SensorMsg *, HitSensor *, HitSensor *);                        // NOTE: return type unknown
         virtual bool receiveMsgScreenPoint(const SensorMsg *, ScreenPointer *, ScreenPointTarget *); // NOTE: return type unknown
 
