@@ -1,11 +1,11 @@
 #ifndef SEAD_TASKMGR_H_
 #define SEAD_TASKMGR_H_
 
-#include <framework/seadHeapPolicies.h>
-#include <framework/seadMethodTree.h>
-#include <framework/seadTaskBase.h>
-#include <heap/seadHeapMgr.h>
-#include <thread/seadCriticalSection.h>
+#include <sead/framework/seadHeapPolicies.h>
+#include <sead/framework/seadMethodTree.h>
+#include <sead/framework/seadTaskBase.h>
+#include <sead/heap/seadHeapMgr.h>
+#include <sead/thread/seadCriticalSection.h>
 
 namespace sead
 {

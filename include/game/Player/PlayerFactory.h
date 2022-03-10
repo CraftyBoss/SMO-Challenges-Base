@@ -10,7 +10,7 @@ PlayerActorBase* createPlayerFunction(const char *name);
 
 typedef PlayerActorBase* (*CreateHakoniwa)(const char* name);
 
-static al::FactoryEntry<CreateHakoniwa> playerEntries[] = {
+static al::NameToCreator<CreateHakoniwa> playerEntries[] = {
     {"PlayerActorHakoniwa", &createPlayerFunction<PlayerActorHakoniwa>},
     {"YukimaruRacePlayer", &createPlayerFunction<YukimaruRacePlayer>}
 };

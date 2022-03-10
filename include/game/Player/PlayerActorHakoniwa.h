@@ -37,20 +37,18 @@ public:
     void startPlayerPuppet(void);
     void initPlayer(al::ActorInitInfo const &, PlayerInitInfo const &);
 
-    unsigned char padding_E8[0xE0 - PACTORSIZE];
-    int portNo; // 0xE8
-    unsigned char padding_130[0x38];
-    PlayerInfo *mPlayerInfo;                   // 0x128
-    PlayerConst *mPlayerConst;                 // 0x130
-    PlayerInput *mPlayerInput;                 //0x138
-    unsigned char padding_148[0x8];            // PlayerTrigger
-    HackCap *mHackCap;                         // 0x148
-    ActorDimensionKeeper *mDimKeeper;          // 0x150
-    PlayerModelKeeper *mPlayerModelKeeper;     // 0x158
+    unsigned char padding[0x18]; // 0x108
+    PlayerInfo *mPlayerInfo; // 0x128
+    PlayerConst *mPlayerConst; // 0x130
+    PlayerInput *mPlayerInput; //0x138 
+    unsigned char padding_148[0x8]; // PlayerTrigger
+    HackCap *mHackCap; // 0x148
+    ActorDimensionKeeper *mDimKeeper; // 0x150
+    PlayerModelKeeper *mPlayerModelKeeper; // 0x158
     PlayerModelChangerHakoniwa *mModelChanger; // 0x160
-    PlayerAnimator *mPlayerAnimator;           // 0x168
-    PlayerColliderHakoniwa *mPlayerCollider;   // 0x170
-    PlayerPuppet *mPlayerPuppet;               // 0x178
+    PlayerAnimator *mPlayerAnimator; // 0x168 
+    PlayerColliderHakoniwa *mPlayerCollider; // 0x170
+    PlayerPuppet *mPlayerPuppet; // 0x178
     // 0x180 PlayerAreaChecker
     // 0x188 WaterSurfaceFinder
     // 0x190 unk
@@ -68,9 +66,9 @@ public:
     // 0x1F0 unk
     // 0x1F8 PlayerBindKeeper
     unsigned char padding_208[0x208 - 0x180];
-    PlayerHackKeeper *mHackKeeper;                    // 0x208
+    PlayerHackKeeper *mHackKeeper; // 0x208
     PlayerFormSensorCollisionArranger *mCollArranger; // 0x210
-    void *unkPtr2;                                    // 0x218
-    void *unkPtr3;                                    // 0x220
-    PlayerSpinCapAttack *mSpinCapAttack;              // 0x228
+    void *unkPtr2; // 0x218
+    void *unkPtr3; // 0x220
+    PlayerSpinCapAttack *mSpinCapAttack; // 0x228
 };

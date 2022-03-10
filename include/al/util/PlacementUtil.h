@@ -2,6 +2,7 @@
 
 #include "al/actor/ActorInitInfo.h"
 #include "al/actor/Placement.h"
+#include "al/stage/StageInfo.h"
 #include "al/string/StringTmp.h"
 #include <sead/math/seadVector.h>
 #include <sead/math/seadMatrix.h>
@@ -32,5 +33,20 @@ namespace al
     bool isEqualPlacementId(const al::PlacementInfo &, const al::PlacementInfo &);
     bool isObjectName(const al::PlacementInfo &, const char *);
 
-    al::StringTmp<0x80> makeStringPlacementId(al::PlacementId const*);
+    al::StringTmp<0x80> makeStringPlacementId(al::PlacementId const *);
+
+    void tryGetPlacementInfoAndCount(PlacementInfo *, int *, StageInfo const *, char const *);
+
+    void getPlacementInfoByIndex(PlacementInfo *, PlacementInfo const &, int);
+
+    void getObjectName(const char **namePtr, const PlacementInfo &placementInfo);
+
+    bool tryGetObjectName(const char **namePtr, const PlacementInfo &placementInfo);
+
+    bool tryGetStringArg(const char **namePtr, const PlacementInfo &info, const char *key);
+
+    bool tryGetClassName(const char **namePtr, const PlacementInfo &info);
+
+    bool tryGetDisplayName(const char **namePtr, const PlacementInfo &info);
+    
 };

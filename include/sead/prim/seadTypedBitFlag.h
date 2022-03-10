@@ -3,7 +3,7 @@
 #include <initializer_list>
 #include <type_traits>
 
-#include "prim/seadBitFlag.h"
+#include "sead/prim/seadBitFlag.h"
 
 namespace sead
 {

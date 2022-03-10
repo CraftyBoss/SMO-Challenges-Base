@@ -1,4 +1,13 @@
 #include "main.hpp"
+#include "al/area/AreaObj.h"
+#include "al/area/AreaObjGroup.h"
+#include "al/camera/CameraDirector.h"
+#include "al/camera/CameraPoser.h"
+#include "al/util.hpp"
+#include "al/util/LiveActorUtil.h"
+#include "al/util/StringUtil.h"
+#include "cameras/CameraPoserCustom.h"
+#include "debugMenu.hpp"
 
 static bool showMenu = true;
 
@@ -107,17 +116,27 @@ void drawMainHook(HakoniwaSequence *curSequence, sead::Viewport *viewport, sead:
 
         gTextWriter->setScaleFromFontHeight(20.f);
 
-        if(ca::bombInstance) {
+        al::CameraPoser *curPoser;
 
-            gTextWriter->printf("Current Action: %s\n", al::getActionName(ca::bombInstance));
+        al::CameraDirector *director = curScene->getCameraDirector();
+        if (director) {
+            al::CameraPoseUpdater *updater = director->getPoseUpdater(0);
+            if (updater && updater->mTicket) {
+                curPoser = updater->mTicket->mPoser;
+            }
+        }
 
-            sead::Vector3f *curPos = al::getTrans(ca::bombInstance);
+        if (curPoser) {
 
-            gTextWriter->printf("Togezo X: %f\n", curPos->x);
-            gTextWriter->printf("Togezo Y: %f\n", curPos->y);
-            gTextWriter->printf("Togezo Z: %f\n", curPos->z);
+            // we can print anything from our current camera poser here
 
-            gTextWriter->printf("Explosion Timer: %d\n", ca::bombInstance->explodeTimer);
+            gTextWriter->printf("Camera Poser Name: %s\n", curPoser->getName());
+
+            if (al::isEqualString(curPoser->getName(), "CameraPoserCustom")) {
+                cc::CameraPoserCustom* poserCustom = (cc::CameraPoserCustom*)curPoser; // casts current poser to custom poser class so we can access class-specific members
+                gTextWriter->printf("V Angle: %f\n", poserCustom->mAngle);
+            }
+
         }
 
         isInGame = false;
@@ -157,19 +176,7 @@ void stageSceneHook()
     al::PlayerHolder *pHolder = al::getScenePlayerHolder(stageScene);
     PlayerActorHakoniwa *p1 = al::tryGetPlayerActor(pHolder, 0);
 
-    if (!isInGame)
-    {
-        isInGame = true;
-    }
-
-    if (al::isPadTriggerLeft(-1))
-    {
-        if(ca::bombInstance) {
-            if(al::isDead(ca::bombInstance)) {
-                ca::bombInstance->makeActorAlive();
-            }
-        }
-    }
+    isInGame = true;
 
     if (al::isPadTriggerUp(-1)) // enables/disables debug menu
     {

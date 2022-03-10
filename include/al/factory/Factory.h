@@ -7,7 +7,7 @@
 namespace al
 {
     template <class T>
-    struct FactoryEntry
+    struct NameToCreator
     {
         const char *actorName;
         T createActorFunction;
@@ -39,7 +39,7 @@ namespace al
     protected:
         // 0x0 is vtable
         const char *factoryName;         // 0x8
-        al::FactoryEntry<T> *actorTable; // 0x10
+        al::NameToCreator<T> *actorTable; // 0x10
         int factoryCount;                // 0x18
     };
 

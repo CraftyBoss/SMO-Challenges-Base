@@ -33,6 +33,8 @@ B59E28: // sead::system::print
 
 4B5E30: // patches actor factory ctor with custom matching factory
     B ProjectActorFactory
+4BE628: // patches camera poser factory with custom matching factory
+    B ProjectCameraPoserFactory
 
 // Amiibo Button Disabling
 577078: // rs::isHoldAmiiboMode

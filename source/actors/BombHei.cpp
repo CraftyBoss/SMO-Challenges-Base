@@ -10,7 +10,7 @@ typedef void (BombHei::*functorType)();
 
 void BombHei::init(al::ActorInitInfo const &info)
 {
-    al::initActorWithArchiveName(this, info, "CustomTogezo", nullptr);
+    al::initActorWithArchiveName(this, info, "BombHei", nullptr);
 
     // if (al::isValidStageSwitch(this, "SwitchStart")) {
     //     gLogger->LOG("Valid.\n");

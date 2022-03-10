@@ -2,17 +2,19 @@
 
 #include "Factory.h"
 
-namespace al
-{
-
-    template <class T>
-    al::LiveActor *createActorFunction(const char *name);
-
+namespace ca {
     template <class T>
     al::LiveActor *createCustomActor(const char *name)
     {
         return new T(name);
     };
+}
+
+namespace al
+{
+
+    template <class T>
+    al::LiveActor *createActorFunction(const char *name);
 
     class LiveActor;
 

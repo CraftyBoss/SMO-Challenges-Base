@@ -1,7 +1,7 @@
 #pragma once
 
 #include <utility>
-#include "basis/seadTypes.h"
+#include "sead/basis/seadTypes.h"
 
 namespace sead
 {

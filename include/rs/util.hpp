@@ -13,9 +13,11 @@ namespace rs
     ChangeStageInfo *createChangeStageInfo(al::LiveActor const*, al::PlacementInfo const&, char const*, char const*, bool, int, ChangeStageInfo::SubScenarioType);
     ChangeStageInfo *createChangeStageInfo(const al::LiveActor *, const al::PlacementInfo *);
 
+    bool calcOnGroundNormalOrGravityDir(sead::Vector3f*, al::LiveActor const*, IUsePlayerCollision const*);
+    
+    bool isPlayer2D(al::LiveActor const*);
+    
     bool isPlayerDamageStopDemo(const al::LiveActor *);
-
-    al::LiveActor* getPlayerActor(const al::Scene *);
 
     void get2DAreaPos(sead::Vector3<f32> *, al::AreaObj const *);
 

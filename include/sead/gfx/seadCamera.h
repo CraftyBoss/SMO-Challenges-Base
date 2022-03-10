@@ -31,7 +31,7 @@ namespace sead
         void worldPosToCameraPosByMatrix(Vector3f *, Vector3f const &) const;
         void cameraPosToWorldPosByMatrix(Vector3f *, Vector3f const &) const;
 
-        Matrix34f camMatrix;   // 30
+        Matrix34f camMatrix = Matrix34f::ident;   // 30
     };
 
     class LookAtCamera : public Camera
@@ -40,7 +40,10 @@ namespace sead
         SEAD_RTTI_OVERRIDE(LookAtCamera, Camera)
 
     public:
-        LookAtCamera(Vector3f const &pos, Vector3f const &at, Vector3f const &up);
+        LookAtCamera(Vector3f const &pos, Vector3f const &at, Vector3f const &up)
+          : mPos(pos), mAt(at), mUp(up) {
+            //mUp.normalize();
+        }
 
         Vector3f& getPos() { return mPos; }
         Vector3f& getAt() { return mAt; }

@@ -35,7 +35,19 @@ namespace al {
     void turnToTarget(LiveActor*, const sead::Vector3f&, float);
     void turnToTarget(LiveActor*, const al::LiveActor *, float);
 
-    void expandClippingRadiusByShadowLength(LiveActor *,sead::Vector3f *, float);
+    void expandClippingRadiusByShadowLength(LiveActor*, sead::Vector3f*, float);
+
+    void initActorPoseTRSV(al::LiveActor *);
+    void initActorPoseTRMSV(al::LiveActor *);
+    void initActorPoseTRGMSV(al::LiveActor *);
+    void initActorPoseTFSV(al::LiveActor *);
+    void initActorPoseTFUSV(al::LiveActor *);
+    void initActorPoseTFGSV(al::LiveActor *);
+    void initActorPoseTQSV(al::LiveActor *);
+    void initActorPoseTQGSV(al::LiveActor *);
+    void initActorPoseTQGMSV(al::LiveActor *);
+    void initActorPoseT(al::LiveActor *,sead::Vector3<float> const&);
+    void initActorPoseTR(al::LiveActor *,sead::Vector3<float> const&,sead::Vector3<float> const&);
 
     void initCreateActorWithPlacementInfo(LiveActor *, const al::ActorInitInfo &);
     void initMapPartsActor(LiveActor *, const al::ActorInitInfo  &, const char *);
@@ -72,7 +84,7 @@ namespace al {
     bool tryFindNearestPlayerPos(sead::Vector3f *, const LiveActor *);
     bool tryAddRippleMiddle(const LiveActor*);
     bool tryStartMclAnimIfNotPlaying(LiveActor *, char const *);
-    bool tryEmitEffect(IUseEffectKeeper *, char const *, sead::Vector3f const *);
+    bool tryEmitEffect(IUseEffectKeeper *effectKeeper, char const *effectName, sead::Vector3f const *effectPosition);
 
     sead::Vector3f* getTrans(const LiveActor*);
     sead::Vector3f* getTransPtr(LiveActor*);
@@ -81,7 +93,14 @@ namespace al {
     sead::Vector3f* getFront(const LiveActor*);
     sead::Vector3f* getFrontPtr(LiveActor*);
     sead::Vector3f* getVelocity(const LiveActor*);
-    sead::Vector3f* getVelocityPtr(LiveActor*);
+    sead::Vector3f *getVelocityPtr(LiveActor *);
+    sead::Vector3f *getUp(const LiveActor *);
+    sead::Vector3f *getUpPtr(LiveActor *);
+    sead::Vector3f *getScale(const LiveActor *);
+    sead::Vector3f *getScalePtr(LiveActor *);
+    float *getScaleX(LiveActor const *);
+    float *getScaleY(LiveActor const *);
+    float *getScaleZ(LiveActor const *);
     Collider* getActorCollider(LiveActor const *);
 
     sead::Matrix34f* getJointMtxPtr(const LiveActor*, const char*); //return type might be const
@@ -92,6 +111,7 @@ namespace al {
 
     void scaleVelocity(LiveActor*, float);
     void scaleVelocityDirection(LiveActor*, sead::Vector3f const &, float);
+    void scaleVelocityExceptDirection(LiveActor *, sead::Vector3f const &, float);
 
     void setTrans(LiveActor *, sead::Vector3f const &);
     void setVelocity(LiveActor*, sead::Vector3f const&);
@@ -100,8 +120,9 @@ namespace al {
     void setVelocityY(LiveActor*, float);
     void setVelocityZ(LiveActor*, float);
     void setVelocityZero(LiveActor*);
-    void setVelocityBlowAttackAndTurnToTarget(LiveActor *, sead::Vector3f const&,
-                                                  float, float);
+    void setVelocityBlowAttackAndTurnToTarget(LiveActor *,
+                                              sead::Vector3f const &, float,
+                                              float);
     void setActionFrameRate(LiveActor*, float);
     void setEffectAllScale(IUseEffectKeeper *, char const *, sead::Vector3f const &);
 

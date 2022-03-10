@@ -11,7 +11,6 @@ namespace al {
     };
 }
 
-#include "al/scene/Scene.h"
 #include "game/GameData/GameDataFile.h"
 
 class GameDataHolder : public al::ISceneObj

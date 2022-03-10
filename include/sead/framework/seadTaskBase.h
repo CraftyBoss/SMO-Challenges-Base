@@ -1,15 +1,15 @@
 #ifndef SEAD_TASKBASE_H_
 #define SEAD_TASKBASE_H_
 
-#include <container/seadTList.h>
-#include <container/seadTreeNode.h>
-#include <framework/seadHeapPolicies.h>
-#include <framework/seadTaskID.h>
-#include <heap/seadDisposer.h>
-#include <prim/seadBitFlag.h>
-#include <prim/seadDelegateEventSlot.h>
-#include <prim/seadNamable.h>
-#include <prim/seadRuntimeTypeInfo.h>
+#include <sead/container/seadTList.h>
+#include <sead/container/seadTreeNode.h>
+#include <sead/framework/seadHeapPolicies.h>
+#include <sead/framework/seadTaskID.h>
+#include <sead/heap/seadDisposer.h>
+#include <sead/prim/seadBitFlag.h>
+#include <sead/prim/seadDelegateEventSlot.h>
+#include <sead/prim/seadNamable.h>
+#include <sead/prim/seadRuntimeTypeInfo.h>
 
 namespace sead
 {

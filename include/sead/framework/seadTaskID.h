@@ -1,7 +1,7 @@
 #ifndef SEAD_TASK_ID_H_
 #define SEAD_TASK_ID_H_
 
-#include <basis/seadTypes.h>
+#include <sead/basis/seadTypes.h>
 
 namespace sead
 {

@@ -5,8 +5,7 @@
 
 S2VER ?= 100
 S2VERSTR ?= 1.0.0
-S2ROMTYPE ?= US
-IP ?= 10.0.0.222 # Put Switch IP Here (for make send)
+IP ?= 10.0.0.230 # Put Switch IP Here (for make send)
 USER ?= crafty # Put username here (for make send)
 PASS ?= boss # put password here (for make send)
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "framework/seadMethodTree.h"
-#include "framework/seadTaskBase.h"
+#include "sead/framework/seadMethodTree.h"
+#include "sead/framework/seadTaskBase.h"
 
 namespace sead
 {

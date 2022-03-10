@@ -69,10 +69,10 @@ namespace al
     class WobbleMapParts;
 } // namespace al
 
-static al::FactoryEntry<al::createActor> actorEntries[] = {
+static al::NameToCreator<al::createActor> actorEntries[] = {
     // CUSTOM ACTOR ENTRIES HERE
-    {"BlockShine", &al::createCustomActor<ca::BlockShine>},
-    {"CustomTogezo", &al::createCustomActor<ca::BombHei>},
+    {"BlockShine", &ca::createCustomActor<ca::BlockShine>},
+    {"CustomTogezo", &ca::createCustomActor<ca::BombHei>},
     // VANILLA ACTOR ENTRIES
     {"AchievementNpc", &al::createActorFunction<class AchievementNpc>},
     {"AirBubble", &al::createActorFunction<class AirBubble>},

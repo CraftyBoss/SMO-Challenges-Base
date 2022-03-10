@@ -1,7 +1,7 @@
 #ifndef SEAD_RESOURCE_H_
 #define SEAD_RESOURCE_H_
 
-#include <sead/basis/seadNew.h>
+#include <sead/basis/seadNew.hpp>
 #include <sead/basis/seadTypes.h>
 #include <sead/container/seadTList.h>
 #include <sead/heap/seadDisposer.h>

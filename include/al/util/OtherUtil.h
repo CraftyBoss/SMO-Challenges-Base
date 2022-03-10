@@ -1,5 +1,7 @@
 #pragma once
 
+#include "al/area/AreaObj.h"
+
 #include <sead/math/seadQuat.h>
 #include <sead/math/seadVector.h>
 #include <sead/prim/seadSafeString.h>
@@ -25,7 +27,6 @@ class Projection;
 class IUseLayout;
 class ActorInitInfo;
 class Scene;
-class AreaObj;
 class IUseAudioKeeper;
 class SensorMsg;
 class IUseSceneObjHolder;
@@ -54,7 +55,7 @@ int getPlayerControllerPort(int);
 
 char const* getActionName(al::LiveActor const*);
 
-char const* getActionFrame(al::LiveActor const*);
+float getActionFrame(al::LiveActor const*);
 
 sead::Vector3f* getCameraPos(al::IUseCamera const*, int);
 
