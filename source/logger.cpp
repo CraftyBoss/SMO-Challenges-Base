@@ -95,6 +95,6 @@ void tryInitSocket()
     #ifdef SERVERIP
     gLogger = new Logger(TOSTRING(SERVERIP), 3080, "MainLogger");
     #else
-        gLogger = new Logger(0, 3080, "MainLogger");
+    gLogger = new Logger(0, 3080, "MainLogger");
     #endif
 }
