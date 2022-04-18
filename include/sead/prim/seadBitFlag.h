@@ -1,10 +1,7 @@
-#ifndef SEAD_BIT_FLAG_H_
-#define SEAD_BIT_FLAG_H_
+#pragma once
 
-#include <limits>
-
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
 
 namespace sead
 {
@@ -39,7 +36,7 @@ public:
     operator T() const { return mBits; }
 
     void makeAllZero() { mBits = 0; }
-    void makeAllOne() { mBits = std::numeric_limits<T>::max(); }
+    void makeAllOne() { mBits = ~T(0); }
 
     void setDirect(T bits) { mBits = bits; }
     T getDirect() const { return mBits; }
@@ -72,17 +69,19 @@ public:
         return true;
     }
 
-    // TODO
+    // TODO: what is this even supposed to do? (This function is known to exist
+    //       because it is present in debug info for pead in Super Mario Run.)
     T getMask(T v) const;
-    static T makeMask(int bit);
 
-    void setBit(int bit) { set(1u << bit); }
-    void resetBit(int bit) { reset(1u << bit); }
-    void changeBit(int bit, bool on) { change(1u << bit, on); }
-    void toggleBit(int bit) { toggle(1u << bit); }
-    bool isOnBit(int bit) const { return isOn(1u << bit); }
-    bool isOffBit(int bit) const { return isOff(1u << bit); }
-    bool testAndClearBit(int bit) { return testAndClear(1u << bit); }
+    static T makeMask(int bit) { return T(1) << bit; }
+
+    void setBit(int bit) { set(makeMask(bit)); }
+    void resetBit(int bit) { reset(makeMask(bit)); }
+    void changeBit(int bit, bool on) { change(makeMask(bit), on); }
+    void toggleBit(int bit) { toggle(makeMask(bit)); }
+    bool isOnBit(int bit) const { return isOn(makeMask(bit)); }
+    bool isOffBit(int bit) const { return isOff(makeMask(bit)); }
+    bool testAndClearBit(int bit) { return testAndClear(makeMask(bit)); }
 
     /// Popcount.
     int countOnBit() const
@@ -119,11 +118,9 @@ protected:
     T mBits;
 };
 
-typedef BitFlag<u8> BitFlag8;
-typedef BitFlag<u16> BitFlag16;
-typedef BitFlag<u32> BitFlag32;
-typedef BitFlag<u64> BitFlag64;
+using BitFlag8 = BitFlag<u8>;
+using BitFlag16 = BitFlag<u16>;
+using BitFlag32 = BitFlag<u32>;
+using BitFlag64 = BitFlag<u64>;
 
 }  // namespace sead
-
-#endif  // SEAD_BIT_FLAG_H_

@@ -1,10 +1,10 @@
 #ifndef SEAD_DISPOSER_H_
 #define SEAD_DISPOSER_H_
 
-//#include <sead/basis/seadNew.h>
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadListImpl.h>
+#include <basis/seadNew.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
+#include <container/seadListImpl.h>
 
 namespace sead
 {
@@ -108,8 +108,7 @@ protected:                                                                      
             SingletonDisposer_::sStaticDisposer = NULL;                                            \
             staticDisposer->~SingletonDisposer_();                                                 \
                                                                                                    \
-            if (sInstance != NULL)                                                                 \
-                delete sInstance;                                                                  \
+            delete sInstance;                                                                      \
                                                                                                    \
             sInstance = NULL;                                                                      \
         }                                                                                          \

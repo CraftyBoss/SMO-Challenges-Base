@@ -6,7 +6,7 @@
 #pragma once
 
 #include "../types.h"
-#include <sead/gfx/seadContext.h>
+#include <sead/gfx/seadDrawContext.h>
 #include <sead/gfx/seadProjection.h>
 #include <sead/math/seadBoundBox.h>
 #include <sead/gfx/seadCamera.h>

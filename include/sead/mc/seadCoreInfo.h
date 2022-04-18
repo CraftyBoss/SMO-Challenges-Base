@@ -2,9 +2,9 @@
 
 #include <nn/os.h>
 
-#include "sead/basis/seadTypes.h"
-#include "sead/prim/seadBitFlag.h"
-#include "sead/prim/seadEnum.h"
+#include <basis/seadTypes.h>
+#include <prim/seadBitFlag.h>
+#include <prim/seadEnum.h>
 
 namespace sead
 {
@@ -66,11 +66,15 @@ public:
 
     static CoreId getCurrentCoreId()
     {
+#ifdef NNSDK
         // Based on the BotW implementation
         const auto number = nn::os::GetTlsValue(sCoreNumberTlsSlot);
         if (number)
             return number - 1;
         return nn::os::GetCurrentCoreNumber();
+#else
+#error "Unknown platform"
+#endif
     }
 
     static u32 getPlatformMask(CoreId id);
@@ -96,14 +100,18 @@ public:
         mask.set(u32(getMaskAll()) - 1);
         return mask;
     }
-    
+
+#ifdef NNSDK
     static nn::os::TlsSlot getCoreNumberTlsSlot() { return sCoreNumberTlsSlot; }
+#endif
 
 protected:
     static u32 sNumCores;
     static u32 sPlatformCoreId[32];
     static CoreId sCoreIdFromPlatformCoreIdTable[32];
+#ifdef NNSDK
     static nn::os::TlsSlot sCoreNumberTlsSlot;
+#endif
 };
 
 }  // namespace sead

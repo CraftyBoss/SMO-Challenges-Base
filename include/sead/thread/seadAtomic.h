@@ -6,11 +6,18 @@
 
 namespace sead
 {
+struct AtomicDirectInitTag
+{
+};
+
 template <class T>
 struct AtomicBase
 {
 public:
-    AtomicBase(T value = {});
+    AtomicBase(T value = {});  // NOLINT(google-explicit-constructor)
+    /// Directly initialises the underlying atomic with the specified value.
+    /// Note that initialisation is not atomic.
+    AtomicBase(AtomicDirectInitTag, T value);
     AtomicBase(const AtomicBase& rhs) { *this = rhs; }
 
     operator T() const { return load(); }
@@ -54,12 +61,12 @@ protected:
     // when necessary. That is formally undefined behavior, but it should be safe because
     // sead is built with -fno-strict-aliasing and because of the following static assertions.
     std::atomic<T> mValue;
-    static_assert(sizeof(mValue) == sizeof(T),
-                  "std::atomic<T> and T do not have the same size; unsupported case");
-    static_assert(alignof(decltype(mValue)) == alignof(volatile T),
-                  "std::atomic<T> and T do not have the same alignment; unsupported case");
-    static_assert(std::atomic<T>::is_always_lock_free,
-                  "std::atomic<T>::is_always_lock_free is not true; unsupported case");
+    // static_assert(sizeof(mValue) == sizeof(T),
+    //               "std::atomic<T> and T do not have the same size; unsupported case");
+    // static_assert(alignof(decltype(mValue)) == alignof(volatile T),
+    //               "std::atomic<T> and T do not have the same alignment; unsupported case");
+    // static_assert(std::atomic<T>::is_always_lock_free,
+    //               "std::atomic<T>::is_always_lock_free is not true; unsupported case");
 
     const volatile T* getValuePtr() const { return reinterpret_cast<const volatile T*>(&mValue); }
     volatile T* getValuePtr() { return reinterpret_cast<volatile T*>(&mValue); }
@@ -115,7 +122,12 @@ struct Atomic<T*> : AtomicBase<T*>
 template <class T>
 inline AtomicBase<T>::AtomicBase(T value)
 {
-    store(value);
+    storeNonAtomic(value);
+}
+
+template <class T>
+inline AtomicBase<T>::AtomicBase(AtomicDirectInitTag, T value) : mValue(value)
+{
 }
 
 template <class T>
@@ -138,7 +150,7 @@ inline void AtomicBase<T>::store(T value)
 template <class T>
 inline void AtomicBase<T>::storeNonAtomic(T value)
 {
-    new (&mValue) std::atomic<T>(value);
+    *getValuePtr() = value;
 }
 
 template <class T>
@@ -270,6 +282,6 @@ bool Atomic<T>::setBitOff(unsigned int bit)
     return (old & (1 << bit)) != 0;
 }
 #else  // NNSDK
-//#error "Unknown platform"
+#error "Unknown platform"
 #endif
 }  // namespace sead

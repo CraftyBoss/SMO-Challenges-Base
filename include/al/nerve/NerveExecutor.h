@@ -1,7 +1,7 @@
 #pragma once
 
-#include "al/nerve/Nerve.h"
-#include "al/nerve/NerveKeeper.h"
+#include "Nerve.h"
+#include "NerveKeeper.h"
 
 namespace al
 {
@@ -13,7 +13,7 @@ namespace al
         virtual NerveKeeper* getNerveKeeper() const;
         virtual ~NerveExecutor();
 
-        void initNerve(const al::Nerve *, int);
+        void initNerve(const al::Nerve *, int stateCount);
         void updateNerve();
 
         al::NerveKeeper* mKeeper; // _8

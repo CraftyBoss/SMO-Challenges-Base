@@ -1,9 +1,9 @@
 #pragma once
 
-#include <sead/basis/seadTypes.h>
+#include <basis/seadTypes.h>
 #include <cmath>
-#include <sead/math/seadMathPolicies.h>
-#include <sead/math/seadVectorCalcCommon.h>
+#include <math/seadMathPolicies.h>
+#include <math/seadVectorCalcCommon.h>
 
 namespace sead
 {
@@ -255,5 +255,5 @@ const Vector4<f32> Vector4<f32>::ones;
 }  // namespace sead
 
 #define SEAD_MATH_VECTOR_H_
-#include <sead/math/seadVector.hpp>
+#include <math/seadVector.hpp>
 #undef SEAD_MATH_VECTOR_H_

@@ -1,6 +1,6 @@
 #pragma once
 #include "al/LiveActor/LiveActor.h"
-#include "sead/prim/seadSafeString.h"
+#include "sead/prim/seadSafeString.hpp"
 
 class PlayerAnimFrameCtrl {
     public:

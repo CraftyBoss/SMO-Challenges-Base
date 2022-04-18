@@ -92,5 +92,9 @@ bool Logger::pingSocket()
 void tryInitSocket()
 {
     __asm("STR X20, [X8,#0x18]");
-    gLogger = new Logger(GLOBALDEBUGIP, 3080, "MainLogger"); // PLACE LOCAL PC IP ADDRESS HERE
+    #ifdef SERVERIP
+    gLogger = new Logger(TOSTRING(SERVERIP), 3080, "MainLogger");
+    #else
+        gLogger = new Logger(0, 3080, "MainLogger");
+    #endif
 }

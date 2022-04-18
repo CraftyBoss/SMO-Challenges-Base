@@ -1,7 +1,7 @@
 #pragma once
 
-#include <sead/math/seadMathPolicies.h>
-#include <sead/math/seadVector.h>
+#include <math/seadMathPolicies.h>
+#include <math/seadVector.h>
 
 namespace sead
 {
@@ -162,5 +162,5 @@ public:
 }  // namespace sead
 
 #define SEAD_MATH_MATRIX_CALC_COMMON_H_
-#include <sead/math/seadMatrixCalcCommon.hpp>
+#include <math/seadMatrixCalcCommon.hpp>
 #undef SEAD_MATH_MATRIX_CALC_COMMON_H_

@@ -14,5 +14,5 @@ class PlayerColliderHakoniwa : public IUsePlayerCollision {
         f32 getShadowDropHeight() const;
         f32 getFallDistance() const;
 
-        PlayerCollider getPlayerCollider() const;
+        PlayerCollider *getPlayerCollider() const;
 };

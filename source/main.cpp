@@ -174,7 +174,7 @@ void stageSceneHook()
           : [result] "=r"(stageScene));
 
     al::PlayerHolder *pHolder = al::getScenePlayerHolder(stageScene);
-    PlayerActorHakoniwa *p1 = al::tryGetPlayerActor(pHolder, 0);
+    PlayerActorHakoniwa *p1 = (PlayerActorHakoniwa*)al::tryGetPlayerActor(pHolder, 0);
 
     isInGame = true;
 

@@ -8,7 +8,11 @@
 #include "al/actor/IUseName.h"
 
 namespace al {
-    class IUseLayout : public al::IUseName {
 
-    };
-}
+struct LayoutKeeper;
+
+class IUseLayout : virtual public al::IUseName {
+    public:
+        virtual al::LayoutKeeper* getLayoutKeeper(void) const = 0;
+};
+}  // namespace al

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "types.h"
-#include "sead/prim/seadSafeString.h"
+#include "sead/prim/seadSafeString.hpp"
 #include "FunctorBase.h"
 #include "sead/thread/seadDelegateThread.h"
 #include "sead/thread/seadMessageQueue.h"
@@ -17,7 +17,7 @@ namespace al
             
             bool isDone() const {return this->mIsDone;};
             void start();
-        private:
+        // private:
             unsigned char padding_08[0x8];
             sead::DelegateThread *mDelegateThread;
             al::FunctorBase functor;

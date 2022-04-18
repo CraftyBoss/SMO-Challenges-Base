@@ -23,11 +23,11 @@ namespace nn
         struct Uid {
             char data[0x10] = {};
 
-            constexpr bool operator==(const Uid &rhs) const {
+            bool operator==(const Uid &rhs) const {
                 return memcmp(data, rhs.data, 0x10) == 0;
             }
 
-            constexpr Uid& operator=(const Uid& other)
+            Uid& operator=(const Uid& other)
             {
                 memcpy(this->data, other.data, 0x10);
                 return *this;
@@ -35,6 +35,14 @@ namespace nn
 
             inline void print() {
                 gLogger->LOG("Player ID: 0x");
+                gLogger->isDisableName = true;
+                for (size_t i = 0; i < 0x10; i++) { gLogger->LOG("%02X", data[i]); }
+                gLogger->LOG("\n");
+                gLogger->isDisableName = false;
+            }
+
+            inline void print(const char *prefix) {
+                gLogger->LOG("%s: 0x", prefix);
                 gLogger->isDisableName = true;
                 for (size_t i = 0; i < 0x10; i++) { gLogger->LOG("%02X", data[i]); }
                 gLogger->LOG("\n");

@@ -2,6 +2,7 @@
 
 #include "al/actor/ActorInitInfo.h"
 #include "al/actor/ActorSceneInfo.h"
+#include "al/actor/ActorActionKeeper.h"
 #include "al/area/AreaObjDirector.h"
 #include "al/audio/AudioKeeper.h"
 #include "al/camera/CameraDirector.h"
@@ -9,6 +10,7 @@
 #include "al/effect/EffectKeeper.h"
 #include "al/hio/HioNode.h"
 #include "al/nerve/Nerve.h"
+#include "al/nerve/NerveStateCtrl.h"
 #include "al/pose/ActorPoseKeeper.h"
 #include "al/rail/RailKeeper.h"
 #include "al/rail/RailRider.h"
@@ -24,7 +26,6 @@ namespace al
 
     class ActorPoseKeeperBase;
     class ActorExecuteInfo;
-    class ActorActionKeeper;
     class ActorItemKeeper;
     class ActorScoreKeeper;
     class Collider;
@@ -61,8 +62,8 @@ namespace al
         virtual void startClipped();
         virtual void endClipped();
         virtual void attackSensor(HitSensor *, HitSensor *);
-        virtual bool receiveMsg(const SensorMsg *, HitSensor *, HitSensor *);                        // NOTE: return type unknown
-        virtual bool receiveMsgScreenPoint(const SensorMsg *, ScreenPointer *, ScreenPointTarget *); // NOTE: return type unknown
+        virtual bool receiveMsg(const SensorMsg *, HitSensor *, HitSensor *);
+        virtual bool receiveMsgScreenPoint(const SensorMsg *, ScreenPointer *, ScreenPointTarget *);
 
         virtual const char *getName() const { return this->mActorName; };
 
@@ -119,7 +120,5 @@ namespace al
         void *gap_6;                                           // 0xF0
         al::ActorSceneInfo *mSceneInfo;                        // 0xF8
         al::LiveActorFlag *mLiveActorFlag;                     // 0x100
-
-        // 0xF8
     };
 };

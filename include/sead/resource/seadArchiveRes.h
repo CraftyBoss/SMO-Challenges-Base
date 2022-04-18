@@ -1,13 +1,13 @@
 #ifndef SEAD_ARCHIVE_RES_H_
 #define SEAD_ARCHIVE_RES_H_
 
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadSafeArray.h>
-#include <sead/filedevice/seadFileDevice.h>
-#include <sead/heap/seadHeap.h>
-#include <sead/prim/seadSafeString.h>
-#include <sead/resource/seadResource.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
+#include <container/seadSafeArray.h>
+#include <filedevice/seadFileDevice.h>
+#include <heap/seadHeap.h>
+#include <prim/seadSafeString.h>
+#include <resource/seadResource.h>
 
 namespace sead
 {

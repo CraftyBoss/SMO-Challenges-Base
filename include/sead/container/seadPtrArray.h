@@ -1,11 +1,11 @@
 #ifndef SEAD_PTR_ARRAY_H_
 #define SEAD_PTR_ARRAY_H_
 
-//#include <algorithm>
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
-#include <sead/prim/seadMemUtil.h>
-#include <sead/random/seadRandom.h>
+#include <algorithm>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
+#include <prim/seadMemUtil.h>
+#include <random/seadRandom.h>
 
 namespace sead
 {
@@ -156,25 +156,25 @@ protected:
     void insertArray(s32 idx, void* array, s32 array_length, s32 elem_size);
     bool checkInsert(s32 idx, s32 num);
 
-    // template <typename T, typename Compare>
-    // void sort_(Compare cmp)
-    // {
-    //     // Note: Nintendo did not use <algorithm>
-    //     std::sort(mPtrs, mPtrs + size(), [&](const void* a, const void* b) {
-    //         return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
-    //     });
-    // }
+    template <typename T, typename Compare>
+    void sort_(Compare cmp)
+    {
+        // Note: Nintendo did not use <algorithm>
+        std::sort(mPtrs, mPtrs + size(), [&](const void* a, const void* b) {
+            return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
+        });
+    }
 
-    // template <typename T, typename Compare>
-    // void heapSort_(Compare cmp)
-    // {
-    //     // Note: Nintendo did not use <algorithm>
-    //     const auto less_cmp = [&](const void* a, const void* b) {
-    //         return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
-    //     };
-    //     std::make_heap(mPtrs, mPtrs + size(), less_cmp);
-    //     std::sort_heap(mPtrs, mPtrs + size(), less_cmp);
-    // }
+    template <typename T, typename Compare>
+    void heapSort_(Compare cmp)
+    {
+        // Note: Nintendo did not use <algorithm>
+        const auto less_cmp = [&](const void* a, const void* b) {
+            return cmp(static_cast<const T*>(a), static_cast<const T*>(b)) < 0;
+        };
+        std::make_heap(mPtrs, mPtrs + size(), less_cmp);
+        std::sort_heap(mPtrs, mPtrs + size(), less_cmp);
+    }
 
     void heapSort(CompareCallbackImpl cmp);
 
@@ -227,28 +227,28 @@ public:
     T* front() const { return at(0); }
     T* back() const { return at(mPtrNum - 1); }
 
-    void pushBack(T* ptr) { PtrArrayImpl::pushBack(ptr); }
-    void pushFront(T* ptr) { PtrArrayImpl::pushFront(ptr); }
+    void pushBack(T* ptr) { PtrArrayImpl::pushBack(constCast(ptr)); }
+    void pushFront(T* ptr) { PtrArrayImpl::pushFront(constCast(ptr)); }
 
     T* popBack() { return static_cast<T*>(PtrArrayImpl::popBack()); }
     T* popFront() { return static_cast<T*>(PtrArrayImpl::popFront()); }
 
-    void insert(s32 pos, T* ptr) { PtrArrayImpl::insert(pos, ptr); }
+    void insert(s32 pos, T* ptr) { PtrArrayImpl::insert(pos, constCast(ptr)); }
     void insert(s32 pos, T* array, s32 count)
     {
         // XXX: is this right?
-        PtrArrayImpl::insertArray(pos, array, count, sizeof(T));
+        PtrArrayImpl::insertArray(pos, constCast(array), count, sizeof(T));
     }
-    void replace(s32 pos, T* ptr) { PtrArrayImpl::replace(pos, ptr); }
+    void replace(s32 pos, T* ptr) { PtrArrayImpl::replace(pos, constCast(ptr)); }
 
     s32 indexOf(const T* ptr) const { return PtrArrayImpl::indexOf(ptr); }
 
     using CompareCallback = s32 (*)(const T*, const T*);
 
-    //void sort() { sort(compareT); }
-    //void sort(CompareCallback cmp) { PtrArrayImpl::sort_<T>(cmp); }
-    //void heapSort() { heapSort(compareT); }
-    //void heapSort(CompareCallback cmp) { PtrArrayImpl::heapSort_<T>(cmp); }
+    void sort() { sort(compareT); }
+    void sort(CompareCallback cmp) { PtrArrayImpl::sort_<T>(cmp); }
+    void heapSort() { heapSort(compareT); }
+    void heapSort(CompareCallback cmp) { PtrArrayImpl::heapSort_<T>(cmp); }
 
     bool equal(const PtrArray& other, CompareCallback cmp) const
     {
@@ -335,6 +335,13 @@ public:
     T** dataEnd() const { return data() + mPtrNum; }
 
 protected:
+    static void* constCast(const T* ptr)
+    {
+        // Unfortunately, we need to cast away const because several PtrArrayImpl functions
+        // only take void* even though the pointed-to object isn't actually modified.
+        return static_cast<void*>(const_cast<std::remove_const_t<T>*>(ptr));
+    }
+
     static int compareT(const void* a_, const void* b_)
     {
         const T* a = static_cast<const T*>(a_);

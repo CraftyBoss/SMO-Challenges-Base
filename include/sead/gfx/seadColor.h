@@ -22,8 +22,7 @@
 
 #pragma once
 
-// #include <sead/basis/seadTypes.h>
-#include "types.h"
+#include <basis/seadTypes.h>
 
 namespace sead
 {

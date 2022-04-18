@@ -9,5 +9,5 @@
 
 class IUseDimension {
     public:
-        virtual ActorDimensionKeeper *getActorDimensionKeeper() = 0;
+        virtual ActorDimensionKeeper *getActorDimensionKeeper() const = 0;
 };

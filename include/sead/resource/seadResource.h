@@ -1,14 +1,14 @@
 #ifndef SEAD_RESOURCE_H_
 #define SEAD_RESOURCE_H_
 
-#include <sead/basis/seadNew.hpp>
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadTList.h>
-#include <sead/heap/seadDisposer.h>
-#include <sead/heap/seadHeap.h>
-#include <sead/prim/seadBitFlag.h>
-#include <sead/resource/seadDecompressor.h>
-#include <sead/resource/seadResourceMgr.h>
+#include <basis/seadNew.h>
+#include <basis/seadTypes.h>
+#include <container/seadTList.h>
+#include <heap/seadDisposer.h>
+#include <heap/seadHeap.h>
+#include <prim/seadBitFlag.h>
+#include <resource/seadDecompressor.h>
+#include <resource/seadResourceMgr.h>
 
 namespace sead
 {

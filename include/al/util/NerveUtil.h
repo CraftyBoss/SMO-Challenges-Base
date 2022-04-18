@@ -1,5 +1,6 @@
 #pragma once
 
+#include "al/LiveActor/LiveActor.h"
 #include "al/nerve/Nerve.h"
 #include "al/nerve/NerveStateBase.h"
 
@@ -41,7 +42,7 @@ namespace al
     float calcNerveEaseInRate(const al::IUseNerve *, int, int);
 
     void initNerveState(al::IUseNerve *, al::NerveStateBase *, const al::Nerve *, const char *);
-    void initNerve(al::LiveActor *, const al::Nerve *, int);
+    void initNerve(LiveActor *, const al::Nerve *, int);
     void addNerveState(al::IUseNerve *, al::NerveStateBase *, const al::Nerve *, const char *);
     bool updateNerveState(al::IUseNerve *);
     bool updateNerveStateAndNextNerve(al::IUseNerve *, const al::Nerve *);

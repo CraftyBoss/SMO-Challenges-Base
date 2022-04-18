@@ -2,11 +2,11 @@
 
 #include <cstring>
 
-#include "../../basis/seadRawPrint.h"
+#include <basis/seadRawPrint.h>
 #ifndef SEAD_PRIM_MEM_UTIL_H_
 #include <prim/seadMemUtil.h>
 #endif
-#include "../../prim/seadPtrUtil.h"
+#include <prim/seadPtrUtil.h>
 
 namespace sead
 {

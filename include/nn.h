@@ -4,7 +4,7 @@
 #include "nn/result.h"
 #include "nn/util.h"
 #include "nn/os.h"
-#include "nn/os.hpp"
+#include "nn/os.h"
 #include "nn/fs.h"
 #include "nn/diag.h"
 #include "nn/nifm.h"

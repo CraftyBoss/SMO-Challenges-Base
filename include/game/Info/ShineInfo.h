@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sead/prim/seadSafeString.h"
+#include "sead/prim/seadSafeString.hpp"
 
 #include "al/LiveActor/LiveActor.h"
 #include "al/util.hpp"

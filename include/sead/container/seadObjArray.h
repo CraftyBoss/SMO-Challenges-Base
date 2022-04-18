@@ -108,6 +108,22 @@ public:
 
     void insert(s32 pos, const T& item) { PtrArrayImpl::insert(pos, alloc(item)); }
 
+    void erase(int index) { erase(index, 1); }
+
+    void erase(int index, int count)
+    {
+        if (index + count <= size())
+        {
+            for (int i = index; i < index + count; ++i)
+            {
+                auto* ptr = unsafeAt(i);
+                ptr->~T();
+                mFreeList.free(ptr);
+            }
+        }
+        PtrArrayImpl::erase(index, count);
+    }
+
     void clear()
     {
         for (s32 i = 0; i < mPtrNum; ++i)
@@ -136,18 +152,6 @@ public:
         return PtrArrayImpl::compare(other, cmp);
     }
 
-    T* find(const T* ptr) const
-    {
-        return PtrArrayImpl::find(ptr,
-                                  [](const void* a, const void* b) { return a == b ? 0 : -1; });
-    }
-    T* find(const T* ptr, CompareCallback cmp) const { return PtrArrayImpl::find(ptr, cmp); }
-    s32 search(const T* ptr) const
-    {
-        return PtrArrayImpl::search(ptr,
-                                    [](const void* a, const void* b) { return a == b ? 0 : -1; });
-    }
-    s32 search(const T* ptr, CompareCallback cmp) const { return PtrArrayImpl::search(ptr, cmp); }
     s32 binarySearch(const T* ptr) const { return PtrArrayImpl::binarySearch(ptr, compareT); }
     s32 binarySearch(const T* ptr, CompareCallback cmp) const
     {
@@ -208,7 +212,15 @@ public:
 
     T** data() const { return reinterpret_cast<T**>(mPtrs); }
 
-    static constexpr size_t ElementSize = std::max(sizeof(T), FreeList::cPtrSize);
+private:
+    union Node
+    {
+        void* next_node;
+        T elem;
+    };
+
+public:
+    static constexpr size_t ElementSize = sizeof(Node);
 
     static constexpr size_t calculateWorkBufferSize(size_t n)
     {

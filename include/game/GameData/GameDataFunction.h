@@ -9,10 +9,20 @@
 #include "GameDataHolderAccessor.h"
 #include "GameDataHolderWriter.h"
 #include "al/area/ChangeStageInfo.h"
+#include "game/GameData/GameDataFile.h"
 
 class GameDataFunction
 {
 public:
+
+    // sets the current worn costume
+    static void wearCostume(GameDataHolderWriter, char const *);
+
+    // sets the current worn cap
+    static void wearCap(GameDataHolderWriter, char const*);
+
+    // remove cappy
+    static void disableCapByPlacement(al::LiveActor const*);
 
     // restarts current stage
     static void restartStage(GameDataHolderWriter);
@@ -23,13 +33,25 @@ public:
     // attempts to change the current stage the player is in
     static bool tryChangeNextStage(GameDataHolderWriter, ChangeStageInfo const *);
 
+    // gets prev save file's current world id
+    static s32 getPrevWorldId(GameDataHolderAccessor);
     // gets current save file's current world id
     static s32 getCurrentWorldId(GameDataHolderAccessor);
+    // gets next save file's current world id
+    static s32 getNextWorldId(GameDataHolderAccessor);
 
     // gets current save file's current stage scenario no
-    static s32 getScenarioNo(al::LiveActor const *);
+    static u8 getScenarioNo(al::LiveActor const*);
+
+    static s32 calcNextScenarioNo(GameDataHolderAccessor);
+    // gets the current scenario No of the specified kingdom
+    static s32 getWorldScenarioNo(GameDataHolderAccessor, int);
 
     static char* getCurrentStageName(GameDataHolderAccessor);
+
+    static char* getMainStageName(GameDataHolderAccessor, int);
+
+    static char* getNextStageName(GameDataHolderAccessor);
 
     static s32 getCurrentShineNum(GameDataHolderAccessor);
 
@@ -66,8 +88,16 @@ public:
     // upgrades the odyssey
     static void upHomeLevel(GameDataHolderWriter);
 
+    // Saves shine if obtained
+    static void setGotShine(GameDataHolderWriter, ShineInfo const*);
+
     //unlocks a kingdom based off index
     static void unlockWorld(GameDataHolderWriter, int);
+    //sets the scenario of the specified kingdom
+    static void setMainScenarioNo(GameDataHolderWriter, int scenarioNo);
+
+    // checks if the opening cutscene needs to play
+    static bool isPlayDemoOpening(GameDataHolderAccessor);
 
     // checks if odyssey is/needs a repair
     static bool isRepairHome(GameDataHolderAccessor);

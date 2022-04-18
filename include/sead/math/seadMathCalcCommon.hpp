@@ -1,11 +1,11 @@
 #pragma once
 
-#include <sead/basis/seadRawPrint.h>
+#include <basis/seadRawPrint.h>
 #include <cmath>
 #ifndef SEAD_MATH_MATH_CALC_COMMON_H_
-#include <sead/math/seadMathCalcCommon.h>
+#include <math/seadMathCalcCommon.h>
 #endif
-#include <sead/prim/seadBitUtil.h>
+#include <prim/seadBitUtil.h>
 #include <type_traits>
 
 namespace sead

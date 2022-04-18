@@ -7,13 +7,11 @@
 
 #include <types.h>
 #include <sead/math/seadVector.h>
-#include <sead/gfx/seadContext.h>
+#include <sead/gfx/seadDrawContext.h>
+#include <sead/gfx/seadFrameBuffer.h>
 
 namespace sead
 {
-
-    class LogicalFrameBuffer;
-
     class Viewport
     {
     public:

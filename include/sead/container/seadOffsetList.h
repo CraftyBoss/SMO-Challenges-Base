@@ -1,10 +1,10 @@
 #ifndef SEAD_OFFSET_LIST_H_
 #define SEAD_OFFSET_LIST_H_
 
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadListImpl.h>
-#include <sead/prim/seadPtrUtil.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
+#include <container/seadListImpl.h>
+#include <prim/seadPtrUtil.h>
 
 namespace sead
 {

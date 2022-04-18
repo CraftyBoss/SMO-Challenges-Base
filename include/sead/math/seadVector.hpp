@@ -1,8 +1,8 @@
 #pragma once
 
-#include <sead/math/seadVectorCalcCommon.h>
+#include <math/seadVectorCalcCommon.h>
 #ifndef SEAD_MATH_VECTOR_H_
-#include <sead/math/seadVector.h>
+#include <math/seadVector.h>
 #endif
 
 namespace sead

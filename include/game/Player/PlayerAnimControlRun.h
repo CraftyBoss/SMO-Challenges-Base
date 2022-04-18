@@ -27,5 +27,3 @@ class PlayerAnimControlRun {
         undefined8 unk; // 0x32(?)
         char *animName; // 0x38
 };
-
-int test = sizeof(PlayerAnimControlRun);

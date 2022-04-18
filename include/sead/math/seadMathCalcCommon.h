@@ -1,9 +1,9 @@
 #pragma once
 
-#include <sead/basis/seadTypes.h>
+#include <basis/seadTypes.h>
 #include <cmath>
 #include <limits>
-#include <sead/math/seadMathNumbers.h>
+#include <math/seadMathNumbers.h>
 #include <type_traits>
 
 namespace sead
@@ -186,5 +186,5 @@ constexpr T log2(T n)
 }  // namespace sead
 
 #define SEAD_MATH_MATH_CALC_COMMON_H_
-#include <sead/math/seadMathCalcCommon.hpp>
+#include <math/seadMathCalcCommon.hpp>
 #undef SEAD_MATH_MATH_CALC_COMMON_H_

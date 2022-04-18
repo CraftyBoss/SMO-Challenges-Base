@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sead/math/seadMathPolicies.h>
+#include <math/seadMathPolicies.h>
 
 namespace sead
 {
@@ -26,5 +26,5 @@ public:
 }  // namespace sead
 
 #define SEAD_MATH_QUAT_CALC_COMMON_H_
-#include "sead/math/seadQuatCalcCommon.hpp"
+#include "math/seadQuatCalcCommon.hpp"
 #undef SEAD_MATH_QUAT_CALC_COMMON_H_

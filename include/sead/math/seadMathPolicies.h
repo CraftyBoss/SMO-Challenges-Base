@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sead/math/seadMathBase.h>
+#include <math/seadMathBase.h>
 
 namespace sead
 {

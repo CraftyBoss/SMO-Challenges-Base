@@ -11,9 +11,9 @@
 
 #include <cmath>
 
-#include <sead/math/seadMathCalcCommon.h>
+#include <math/seadMathCalcCommon.h>
 #ifndef SEAD_MATH_MATRIX_CALC_COMMON_H_
-#include <sead/math/seadMatrixCalcCommon.h>
+#include <math/seadMatrixCalcCommon.h>
 #endif
 
 namespace sead

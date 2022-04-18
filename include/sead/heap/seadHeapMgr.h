@@ -1,11 +1,11 @@
 #ifndef SEAD_HEAPMGR_H_
 #define SEAD_HEAPMGR_H_
 
-#include <sead/container/seadPtrArray.h>
-#include <sead/heap/seadArena.h>
-#include <sead/heap/seadHeap.h>
-#include <sead/thread/seadAtomic.h>
-#include <sead/thread/seadCriticalSection.h>
+#include <container/seadPtrArray.h>
+#include <heap/seadArena.h>
+#include <heap/seadHeap.h>
+#include <thread/seadAtomic.h>
+#include <thread/seadCriticalSection.h>
 
 namespace sead
 {
@@ -15,11 +15,19 @@ public:
     HeapMgr();
     virtual ~HeapMgr() {}
 
-    Heap* getCurrentHeap();
+    void initialize(ulong);
+    void initializeImpl_(void);
+    void initialize(sead::Arena *);
+
+    Heap* getCurrentHeap() const;
     Heap* findContainHeap(const void* ptr) const;
     static bool isContainedInAnyHeap(const void* ptr);
 
     static HeapMgr* instance() { return sInstancePtr; }
+    static s32 getRootHeapNum(); // { return sRootHeaps.size(); }
+
+    Heap *findHeapByName(sead::SafeStringBase<char> const&,int) const;
+    Heap* findHeapByName_(sead::Heap*, sead::SafeStringBase<char> const&, int*);
 
     // TODO: these should be private
     static HeapMgr sInstance;
@@ -28,7 +36,7 @@ public:
     using RootHeaps = FixedPtrArray<Heap, 4>;
     using IndependentHeaps = FixedPtrArray<Heap, 4>;
 
-private:
+// private:
     friend class ScopedCurrentHeapSetter;
 
     /// Set the current heap to the specified heap and returns the previous "current heap".

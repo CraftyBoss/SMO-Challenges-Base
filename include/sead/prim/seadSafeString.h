@@ -2,8 +2,8 @@
 
 #include <cstdarg>
 
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
 
 namespace sead
 {
@@ -486,3 +486,7 @@ inline bool operator>=(const SafeString& lhs, const SafeString& rhs)
 }
 
 }  // namespace sead
+
+#define SEAD_PRIM_SAFE_STRING_H_
+#include <prim/seadSafeString.hpp>
+#undef SEAD_PRIM_SAFE_STRING_H_

@@ -2,15 +2,15 @@
 #define SEAD_FRAMEWORK_H_
 
 //#include <framework/seadMethodTreeMgr.h>
-#include <sead/framework/seadTaskBase.h>
+#include <framework/seadTaskBase.h>
 //#include <framework/seadTaskMgr.h>
 //#include <gfx/seadFrameBuffer.h>
 //#include <heap/seadArena.h>
 //#include <heap/seadHeap.h>
-#include <sead/hostio/seadHostIOMgr.h>
-#include <sead/prim/seadDelegateEventSlot.h>
-#include <sead/prim/seadRuntimeTypeInfo.h>
-#include <sead/time/seadTickSpan.h>
+#include <hostio/seadHostIOMgr.h>
+#include <prim/seadDelegateEventSlot.h>
+#include <prim/seadRuntimeTypeInfo.h>
+#include <time/seadTickSpan.h>
 
 namespace sead
 {

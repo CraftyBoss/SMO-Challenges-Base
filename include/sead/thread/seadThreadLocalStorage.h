@@ -1,8 +1,10 @@
 #pragma once
 
+#ifdef NNSDK
 #include <nn/os.h>
+#endif
 
-#include "sead/basis/seadTypes.h"
+#include "basis/seadTypes.h"
 
 namespace sead
 {
@@ -19,7 +21,9 @@ public:
     uintptr_t getValue() const;
 
 private:
+#ifdef NNSDK
     nn::os::TlsSlot mTlsSlot;
+#endif
 };
 }  // namespace sead
 
@@ -27,5 +31,6 @@ private:
 #ifdef NNSDK
 #include "thread/nin/seadThreadLocalStorageNin.hpp"
 #else
+#error "Unknown platform"
 #endif
 #undef SEAD_THREAD_THREAD_LOCAL_STORAGE_H_

@@ -6,6 +6,7 @@
 #include "basis/seadTypes.h"
 #include "container/seadFreeList.h"
 #include "container/seadListImpl.h"
+#include "prim/seadPtrUtil.h"
 
 namespace sead
 {
@@ -73,9 +74,6 @@ public:
 
     T popBack()
     {
-        if (mCount < 1)
-            return {};
-
         auto* item = back();
         if (!item)
             return {};
@@ -87,9 +85,6 @@ public:
 
     T popFront()
     {
-        if (mCount < 1)
-            return {};
-
         auto* item = front();
         if (!item)
             return {};
@@ -107,7 +102,7 @@ public:
             SEAD_ASSERT_MSG(false, "buffer full.");
             return nullptr;
         }
-        Node* item = new (mFreeList.alloc()) Node{{std::forward<Args>(args)...}, {}};
+        Node* item = new (mFreeList.alloc()) Node{T{std::forward<Args>(args)...}, {}};
         ListImpl::pushBack(&item->node);
         return &item->item;
     }

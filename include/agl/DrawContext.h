@@ -8,7 +8,7 @@
 #include "types.h"
 #include "DisplayList.h"
 
-#include <sead/gfx/seadContext.h>
+#include <sead/gfx/seadDrawContext.h>
 #include <sead/thread/seadCriticalSection.h>
 
 namespace agl

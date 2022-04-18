@@ -1,10 +1,10 @@
 #pragma once
 
 #include <array>
-#include <limits>
 
 #include <basis/seadRawPrint.h>
 #include <basis/seadTypes.h>
+#include <math/seadMathCalcCommon.h>
 
 namespace sead
 {
@@ -15,7 +15,7 @@ public:
     using Word = u32;
 
     void makeAllZero() { mStorage.fill(0); }
-    void makeAllOne() { mStorage.fill(std::numeric_limits<Word>::max()); }
+    void makeAllOne() { mStorage.fill(~Word(0)); }
 
     Word& getWord(int bit);
     const Word& getWord(int bit) const;
@@ -35,8 +35,6 @@ public:
     static Word makeMask(int bit) { return 1u << (bit % BitsPerWord); }
 
 protected:
-    static constexpr s32 log2(s32 n) { return n <= 1 ? 0 : 1 + log2(n >> 1); }
-
     static constexpr s32 BitsPerWord = 8 * sizeof(Word);
     static constexpr s32 Shift = log2(BitsPerWord);
 

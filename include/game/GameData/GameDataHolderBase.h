@@ -1,8 +1,12 @@
 #pragma once
 
-#include "GameDataHolder.h"
+#include "al/hio/HioNode.h"
+#include "al/message/IUseMessageSystem.h"
+#include "al/scene/ISceneObj.h"
 
-class GameDataHolderBase : public GameDataHolder {
-    public:
-    
-};
+namespace al {
+    class GameDataHolderBase : public ISceneObj, HioNode, IUseMessageSystem {
+        public:
+        
+    };
+}

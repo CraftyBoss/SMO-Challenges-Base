@@ -13,5 +13,5 @@ class PlayerActorBase : public al::LiveActor , public IUsePlayerHack {
     public: 
         PlayerHackKeeper *getPlayerHackKeeper() const; 
         void movement(void);
-        
+        int getPortNo();
 };

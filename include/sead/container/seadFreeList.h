@@ -1,10 +1,9 @@
 #pragma once
 
-//#include <new>
+#include <new>
 
-#include "sead/basis/seadRawPrint.h"
-#include "sead/basis/seadTypes.h"
-#include "sead/basis/seadNew.hpp"
+#include "basis/seadRawPrint.h"
+#include "basis/seadTypes.h"
 
 namespace sead
 {

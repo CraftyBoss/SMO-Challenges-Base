@@ -1,11 +1,11 @@
 #pragma once
 
-//#include <algorithm>
+#include <algorithm>
 #include <type_traits>
 
-#include <sead/prim/seadMemUtil.h>
+#include <prim/seadMemUtil.h>
 #ifndef SEAD_PRIM_SAFE_STRING_H_
-#include <sead/prim/seadSafeString.h>
+#include <prim/seadSafeString.h>
 #endif
 
 namespace sead

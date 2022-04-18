@@ -2,10 +2,10 @@
 
 // DelegateEvent is used to implement a Qt-style signal/slot mechanism.
 
-#include <sead/container/seadTList.h>
-#include <sead/heap/seadDisposer.h>
-#include <sead/prim/seadDelegate.h>
-#include <sead/prim/seadStorageFor.h>
+#include <container/seadTList.h>
+#include <heap/seadDisposer.h>
+#include <prim/seadDelegate.h>
+#include <prim/seadStorageFor.h>
 
 namespace sead
 {
@@ -86,6 +86,8 @@ public:
         for (Slot* slot : mList.robustRange())
             slot->invoke_(arg);
     }
+
+    int getNumSlots() const { return mList.size(); }
 
 protected:
     SlotList mList;

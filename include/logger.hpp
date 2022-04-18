@@ -1,7 +1,10 @@
 #pragma once
 
 #include "SocketBase.hpp"
-#include "privateIps.hpp"
+
+// used to convert server IP macro to string
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
 
 class Logger;
 extern Logger *gLogger;

@@ -60,9 +60,9 @@ void CameraPoserCustom::start(al::CameraStartInfo const&) {
     } else {
         sead::LookAtCamera* curLookCam = alCameraPoserFunction::getLookAtCamera(this);
 
-        sead::Vector3f curPos = curLookCam->mPos;
+        sead::Vector3f curPos = curLookCam->getPos();
 
-        sead::Vector3f curAt = curLookCam->mAt;
+        sead::Vector3f curAt = curLookCam->getAt();
 
         targetFront = sead::Vector3f(curPos.x - curAt.x, 0.0, curPos.z - curAt.z);
 

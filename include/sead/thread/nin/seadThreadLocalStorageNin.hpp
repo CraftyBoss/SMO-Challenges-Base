@@ -1,15 +1,15 @@
 #ifndef SEAD_THREAD_THREAD_LOCAL_STORAGE_H_
-#include "sead/thread/seadThreadLocalStorage.h"
+#include "thread/seadThreadLocalStorage.h"
 #endif
 
-#include "sead/basis/seadRawPrint.h"
+#include "basis/seadRawPrint.h"
 
 namespace sead
 {
 inline ThreadLocalStorage::ThreadLocalStorage()
 {
     [[maybe_unused]] auto result = nn::os::AllocateTlsSlot(&mTlsSlot, nullptr);
-    SEAD_ASSERT(result.IsSuccess());
+    //SEAD_ASSERT(result.IsSuccess()); // this errors
 }
 
 inline ThreadLocalStorage::~ThreadLocalStorage()

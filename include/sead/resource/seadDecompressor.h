@@ -1,19 +1,21 @@
 #ifndef SEAD_DECOMPRESSOR_H_
 #define SEAD_DECOMPRESSOR_H_
 
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadTList.h>
-#include <sead/heap/seadDisposer.h>
-#include <sead/prim/seadSafeString.h>
-#include <sead/resource/seadResource.h>
-#include <sead/resource/seadResourceMgr.h>
+#include <basis/seadTypes.h>
+#include <container/seadTList.h>
+#include <heap/seadDisposer.h>
+#include <prim/seadSafeString.h>
+#include <resource/seadResource.h>
+#include <resource/seadResourceMgr.h>
 
 namespace sead
 {
 class Decompressor : public TListNode<Decompressor*>, public IDisposer
 {
 public:
-    Decompressor(const SafeString& name) : TListNode<Decompressor*>(this), IDisposer(), mExt(name) {}
+    Decompressor(const SafeString& name) : TListNode<Decompressor*>(this), IDisposer(), mExt(name)
+    {
+    }
 
     virtual ~Decompressor()
     {

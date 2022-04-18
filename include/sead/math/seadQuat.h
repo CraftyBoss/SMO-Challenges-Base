@@ -1,10 +1,10 @@
 #pragma once
 
-#include <sead/basis/seadTypes.h>
+#include <basis/seadTypes.h>
 #include <cmath>
 #include <limits>
-#include <sead/math/seadMathPolicies.h>
-#include <sead/math/seadVector.h>
+#include <math/seadMathPolicies.h>
+#include <math/seadVector.h>
 
 namespace sead
 {
@@ -56,6 +56,8 @@ public:
         return *this;
     }
 
+    bool operator==(const Quat& rhs) const { return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z && this->w == rhs.w; }
+
     T length() const;
     T normalize();
     T dot(const Self& q);
@@ -78,5 +80,5 @@ const Quatf Quatf::unit;
 }  // namespace sead
 
 #define SEAD_MATH_QUAT_H_
-#include <sead/math/seadQuat.hpp>
+#include <math/seadQuat.hpp>
 #undef SEAD_MATH_QUAT_H_

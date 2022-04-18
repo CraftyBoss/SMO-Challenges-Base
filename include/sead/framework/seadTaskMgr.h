@@ -1,11 +1,11 @@
 #ifndef SEAD_TASKMGR_H_
 #define SEAD_TASKMGR_H_
 
-#include <sead/framework/seadHeapPolicies.h>
-#include <sead/framework/seadMethodTree.h>
-#include <sead/framework/seadTaskBase.h>
-#include <sead/heap/seadHeapMgr.h>
-#include <sead/thread/seadCriticalSection.h>
+#include <framework/seadHeapPolicies.h>
+#include <framework/seadMethodTree.h>
+#include <framework/seadTaskBase.h>
+#include <heap/seadHeapMgr.h>
+#include <thread/seadCriticalSection.h>
 
 namespace sead
 {
@@ -103,7 +103,7 @@ protected:                                                                      
         if (!sInstance)                                                                            \
         {                                                                                          \
             sInstance = static_cast<CLASS*>(task);                                                 \
-            sInstance.mSingletonDisposer.mActive = true;                                           \
+            sInstance->mSingletonDisposer.mActive = true;                                          \
         }                                                                                          \
         else                                                                                       \
         {                                                                                          \

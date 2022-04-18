@@ -1,7 +1,7 @@
 #pragma once
 
-#include "al/nerve/Nerve.h"
-#include "al/nerve/NerveStateBase.h"
+#include "Nerve.h"
+#include "NerveStateBase.h"
 
 namespace al
 {

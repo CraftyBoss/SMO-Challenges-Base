@@ -53,8 +53,8 @@ void BombHei::listenAppear() {
 bool BombHei::receiveMsg(const al::SensorMsg* message, al::HitSensor* source,
                         al::HitSensor* target) {
     if(rs::isMsgTargetMarkerPosition(message)) {
-        sead::Vector3f *transPtr = al::getTrans(this);
-        rs::setMsgTargetMarkerPosition(message, sead::Vector3f(transPtr->x + 0.0, transPtr->y + 180.0f, transPtr->z + 0.0));
+        sead::Vector3f &transPtr = al::getTrans(this);
+        rs::setMsgTargetMarkerPosition(message, sead::Vector3f(transPtr.x + 0.0, transPtr.y + 180.0f, transPtr.z + 0.0));
         return true;
     }
 
@@ -175,16 +175,16 @@ void BombHei::control() {
 }
 
 void BombHei::updateCollider() {
-    sead::Vector3f* velocity = al::getVelocity(this);
+    sead::Vector3f& velocity = al::getVelocity(this);
 
     if (al::isNoCollide(this)) {
-        *al::getTransPtr(this) += *velocity;
+        *al::getTransPtr(this) += velocity;
         al::getActorCollider(this)->onInvalidate();
     } else {
-        if (al::isFallOrDamageCodeNextMove(this, (*velocity + this->futurePos) * 1.5, 50.0f, 200.0f)) {
-            *al::getTransPtr(this) += al::getActorCollider(this)->collide((*velocity + this->futurePos) * 1.5f);
+        if (al::isFallOrDamageCodeNextMove(this, (velocity + this->futurePos) * 1.5, 50.0f, 200.0f)) {
+            *al::getTransPtr(this) += al::getActorCollider(this)->collide((velocity + this->futurePos) * 1.5f);
         }else {
-            sead::Vector3f result = al::getActorCollider(this)->collide(*velocity + this->futurePos);
+            sead::Vector3f result = al::getActorCollider(this)->collide(velocity + this->futurePos);
             *al::getTransPtr(this) += result;
         }
     }
@@ -194,8 +194,8 @@ void BombHei::updateVelocity() {
     if(al::isOnGround(this, 0)) {
         sead::Vector3f *groundNormal = al::getOnGroundNormal(this, 0);
         al::getVelocity(this);
-        if(al::isFallOrDamageCodeNextMove(this, *al::getVelocity(this), 50.0f, 200.0f)) {
-            float velY = al::getVelocity(this)->y;
+        if(al::isFallOrDamageCodeNextMove(this, al::getVelocity(this), 50.0f, 200.0f)) {
+            float velY = al::getVelocity(this).y;
             al::scaleVelocity(this, -1.0f);
             al::getVelocityPtr(this)->y = velY;
         }else {
@@ -252,10 +252,10 @@ void BombHei::exeCapHit(void)  // 0x10
 
     if (al::isFirstStep(this)) {
         al::startAction(this, "CapHit");
-        sead::Vector3f* actorPos = al::getTrans(this);
+        sead::Vector3f& actorPos = al::getTrans(this);
 
         sead::Vector3f capDirection =
-            sead::Vector3f(actorPos->x - this->capPos.x, 0.0f, actorPos->z - this->capPos.z);
+            sead::Vector3f(actorPos.x - this->capPos.x, 0.0f, actorPos.z - this->capPos.z);
 
         al::tryNormalizeOrDirZ(&capDirection, capDirection);
 
@@ -281,9 +281,9 @@ void BombHei::exeCapHit(void)  // 0x10
 
         al::scaleVelocity(this, 0.95f);
 
-        sead::Vector3f* velocity = al::getVelocity(this);
+        sead::Vector3f& velocity = al::getVelocity(this);
 
-        sead::Vector3f unk = sead::Vector3f(velocity->x, 0.0f, velocity->z);
+        sead::Vector3f unk = sead::Vector3f(velocity.x, 0.0f, velocity.z);
 
         if (al::tryNormalizeOrZero(&unk, unk)) {
             sead::Vector3f unk2 = unk * 10.0f;
@@ -347,11 +347,11 @@ void BombHei::exeTurn(void)  // 0x28
 
     PlayerActorHakoniwa* pActor = al::tryFindNearestPlayerActor(this);
     if(pActor) {
-        if(al::isFaceToTargetDegreeH(this, *al::getTrans(pActor), frontDir, 1.0f)) {
+        if(al::isFaceToTargetDegreeH(this, al::getTrans(pActor), frontDir, 1.0f)) {
             al::setNerve(this, &nrvBombHeiFind);
             return;
         }
-        al::turnToTarget(this, *al::getTrans(pActor), 3.5f);
+        al::turnToTarget(this, al::getTrans(pActor), 3.5f);
     }
     if(!al::isNearPlayer(this, 1300.0f)) {
         al::setNerve(this, &nrvBombHeiWander);
@@ -418,7 +418,7 @@ void BombHei::exeChase(void)  // 0x40
 
         PlayerActorHakoniwa* pActor = al::tryFindNearestPlayerActor(this);
         if(pActor) {
-            al::turnToTarget(this, *al::getTrans(pActor), 3.5f);
+            al::turnToTarget(this, al::getTrans(pActor), 3.5f);
 
             sead::Vector3f frontDir = sead::Vector3f::zero;
             al::calcFrontDir(&frontDir, this);

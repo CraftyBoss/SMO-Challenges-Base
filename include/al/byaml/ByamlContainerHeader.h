@@ -1,13 +1,13 @@
 #pragma once
 
-namespace al
-{
-    class ByamlContainerHeader
-    {
-    public:
-        int getType() const;
-        int getCount(bool) const;
+#include <basis/seadTypes.h>
 
-        int mType; // _0
-    };
+namespace al {
+class ByamlContainerHeader {
+public:
+    int getType() const;
+    int getCount(bool) const;
+
+    u32 mType;  // _0
 };
+};  // namespace al

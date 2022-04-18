@@ -1,11 +1,11 @@
 #pragma once
 
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadSafeArray.h>
-#include <sead/prim/seadSafeString.h>
-#include <sead/prim/seadScopedLock.h>
-#include <sead/thread/seadCriticalSection.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
+#include <container/seadSafeArray.h>
+#include <prim/seadSafeString.h>
+#include <prim/seadScopedLock.h>
+#include <thread/seadCriticalSection.h>
 
 namespace sead
 {
@@ -40,11 +40,22 @@ private:
 ///
 /// SEAD_ENUM(CoreId, cMain, cSub1, cSub2)
 ///
-/// Finally, in the .cpp file, add SEAD_ENUM_IMPL(CoreId)
-///
 #define SEAD_ENUM(NAME, ...)                                                                       \
     class NAME                                                                                     \
     {                                                                                              \
+        /* Note: We cannot provide volatile overloads of the copy constructor and assignment       \
+         * operator, because doing so would cause this class to stop being trivially copyable.     \
+         * As a workaround we provide an implicit conversion to CvRef and a copy assignment        \
+         * operator overload that takes a CvRef. The operator int() and NAME(int) constructor      \
+         * allow construction from a const volatile NAME. */                                       \
+        struct CvRef                                                                               \
+        {                                                                                          \
+            const NAME& asRef() const { return const_cast<const NAME&>(cvref); }                   \
+                                                                                                   \
+            bool is_cv;                                                                            \
+            const volatile NAME& cvref;                                                            \
+        };                                                                                         \
+                                                                                                   \
     public:                                                                                        \
         enum ValueType                                                                             \
         {                                                                                          \
@@ -60,14 +71,38 @@ private:
         NAME(const NAME& other) = default;                                                         \
                                                                                                    \
         NAME& operator=(const NAME& other) = default;                                              \
+        NAME& operator=(ValueType value)                                                           \
+        {                                                                                          \
+            setRelativeIndex(value);                                                               \
+            return *this;                                                                          \
+        }                                                                                          \
+        volatile NAME& operator=(ValueType value) volatile                                         \
+        {                                                                                          \
+            setRelativeIndex(value);                                                               \
+            return *this;                                                                          \
+        }                                                                                          \
+        volatile NAME& operator=(CvRef other) volatile                                             \
+        {                                                                                          \
+            setRelativeIndex(other.is_cv ? other.cvref.mIdx : other.asRef().mIdx);                 \
+            return *this;                                                                          \
+        }                                                                                          \
+                                                                                                   \
         bool operator==(const NAME& rhs) const { return mIdx == rhs.mIdx; }                        \
         bool operator!=(const NAME& rhs) const { return mIdx != rhs.mIdx; }                        \
+                                                                                                   \
         bool operator==(ValueType value) const { return ValueType(mIdx) == value; }                \
+        bool operator==(ValueType value) const volatile { return ValueType(mIdx) == value; }       \
+                                                                                                   \
         bool operator!=(ValueType value) const { return ValueType(mIdx) != value; }                \
+        bool operator!=(ValueType value) const volatile { return ValueType(mIdx) != value; }       \
                                                                                                    \
         ValueType value() const { return static_cast<ValueType>(mIdx); }                           \
         ValueType value() const volatile { return static_cast<ValueType>(mIdx); }                  \
+        /* XXX: Bafflingly, there is no purely const-qualified version of operator int().  */      \
+        /* This leads to suboptimal codegen in many places. */                                     \
         operator int() const volatile { return value(); }                                          \
+        operator CvRef() const { return {false, *this}; }                                          \
+        operator CvRef() const volatile { return {true, *this}; }                                  \
                                                                                                    \
         bool fromText(const sead::SafeString& name)                                                \
         {                                                                                          \
@@ -100,9 +135,9 @@ private:
                                                                                                    \
         const char* getTypeText() const { return #NAME; }                                          \
         const char* getTypeText() const volatile { return #NAME; }                                 \
-        static int size() { return cCount; }                                                       \
-        static int getSize() { return size(); }                                                    \
-        static int getLastIndex() { return size() - 1; }                                           \
+        constexpr static int size() { return cCount; }                                             \
+        constexpr static int getSize() { return size(); }                                          \
+        constexpr static int getLastIndex() { return size() - 1; }                                 \
                                                                                                    \
         static void initialize() { text(0); }                                                      \
                                                                                                    \
@@ -243,8 +278,8 @@ private:
                                                                                                    \
         const char* getTypeText() const { return #NAME; }                                          \
         const char* getTypeText() const volatile { return #NAME; }                                 \
-        static int size() { return cCount; }                                                       \
-        static int getSize() { return size(); }                                                    \
+        constexpr static int size() { return cCount; }                                             \
+        constexpr static int getSize() { return size(); }                                          \
                                                                                                    \
         static void initialize() { text(0); }                                                      \
                                                                                                    \

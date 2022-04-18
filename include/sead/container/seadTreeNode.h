@@ -1,7 +1,7 @@
 #ifndef SEAD_TREENODE_H_
 #define SEAD_TREENODE_H_
 
-#include <sead/basis/seadTypes.h>
+#include <basis/seadTypes.h>
 
 namespace sead
 {

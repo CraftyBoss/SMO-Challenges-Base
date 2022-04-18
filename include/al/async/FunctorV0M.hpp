@@ -1,7 +1,7 @@
 #pragma once
 
 #include "FunctorBase.h"
-#include "sead/basis/seadNew.hpp"
+#include "sead/basis/seadNew.h"
 #include "types.h"
 #include "nn.h"
 

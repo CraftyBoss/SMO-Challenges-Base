@@ -2,10 +2,10 @@
 
 #include "al/LiveActor/LiveActor.h"
 #include "PlayerCostumeInfo.h"
+#include "PlayerModelHolder.h"
 #include "game/Interfaces/IUseDimension.h"
 
 class PlayerPainPartsKeeper;
-class PlayerModelHolder;
 
 class PlayerModelChangerHakoniwa {
     public:

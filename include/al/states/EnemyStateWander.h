@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/nerve/NerveStateBase.h"
+#include "al/nerve/ActorStateBase.h"
 #include "al/util/LiveActorUtil.h"
 #include "al/util/NerveUtil.h"
 #include "al/util/RandomUtil.h"

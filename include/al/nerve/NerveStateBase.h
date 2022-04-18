@@ -1,29 +1,21 @@
 #pragma once
 
-#include "al/nerve/NerveExecutor.h"
+#include "NerveExecutor.h"
 
-namespace al {
-class NerveStateBase : public NerveExecutor {
-public:
-    NerveStateBase(const char*);
-    virtual ~NerveStateBase();
+namespace al
+{
+    class NerveStateBase : public NerveExecutor
+    {
+    public:
+        NerveStateBase(const char *);
 
-    virtual void init();
-    virtual void appear();
-    virtual void kill();
-    virtual bool update();
-    virtual void control();
+        virtual ~NerveStateBase();
+        virtual void init();
+        virtual void appear();
+        virtual void kill();
+        virtual bool update();
+        virtual void control();
 
-    bool mIsDead = true;
+        bool mIsDead; // _10
+    };
 };
-
-class LiveActor;
-
-class ActorStateBase : public al::NerveStateBase {
-public:
-    ActorStateBase(const char*, al::LiveActor*);
-
-protected:
-    LiveActor* mLiveActor;
-};
-};  // namespace al

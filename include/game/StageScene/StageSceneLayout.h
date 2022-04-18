@@ -4,10 +4,10 @@
 #include "al/layout/LayoutActor.h"
 #include "al/layout/LayoutInitInfo.h"
 #include "al/nerve/NerveStateBase.h"
-#include "al/PlayerHolder/PlayerHolder.h"
 
 namespace al {
     class SubCameraRenderer;
+    class PlayerHolder;
 }
 
 class StageSceneLayout : public al::NerveStateBase {
@@ -70,7 +70,7 @@ class StageSceneLayout : public al::NerveStateBase {
         struct PlayGuideCamera * playGuideCam; // 0x40
         struct PlayGuideBgm * playGuideBgm; // 0x48
         struct MapMini * mapMini; // 0x50
-        struct PlayerHolder * playerHolder; // 0x58
+        al::PlayerHolder *playerHolder; // 0x58
         void * unkPtr; // 0x60
         struct SimpleLayoutAppearWaitEnd * simpleLayoutAppearWaitEnd; // 0x68
         void * voidPtr; // 0x70

@@ -1,7 +1,7 @@
 #ifndef SEAD_TLIST_H_
 #define SEAD_TLIST_H_
 
-#include <sead/container/seadListImpl.h>
+#include <container/seadListImpl.h>
 
 namespace sead
 {

@@ -139,7 +139,7 @@ public:
             {
                 mSize = size;
                 mBuffer = buffer;
-                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::abs(alignment)),
+                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::Mathi::abs(alignment)),
                                 "don't set alignment for a class with destructor");
             }
         }
@@ -159,7 +159,7 @@ public:
             {
                 mSize = size;
                 mBuffer = buffer;
-                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::abs(alignment)),
+                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::Mathi::abs(alignment)),
                                 "don't set alignment for a class with destructor");
             }
         }
@@ -179,7 +179,7 @@ public:
             {
                 mSize = size;
                 mBuffer = buffer;
-                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::abs(alignment)),
+                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::Mathi::abs(alignment)),
                                 "don't set alignment for a class with destructor");
                 return true;
             }
@@ -199,7 +199,7 @@ public:
             {
                 mSize = size;
                 mBuffer = buffer;
-                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::abs(alignment)),
+                SEAD_ASSERT_MSG(PtrUtil::isAlignedPow2(mBuffer, sead::Mathi::abs(alignment)),
                                 "don't set alignment for a class with destructor");
                 return true;
             }
@@ -209,11 +209,12 @@ public:
         return false;
     }
 
-    __attribute__((always_inline)) void allocBufferAssert(s32 size, Heap* heap,
-                                                          s32 alignment = sizeof(void*))
+    inline bool allocBufferAssert(s32 size, Heap* heap, s32 alignment = sizeof(void*))
     {
-        if (!tryAllocBuffer(size, heap, alignment))
-            AllocFailAssert(heap, sizeof(T) * size, alignment);
+        if (tryAllocBuffer(size, heap, alignment))
+            return true;
+        AllocFailAssert(heap, sizeof(T) * size, alignment);
+        return false;
     }
 
     void freeBuffer()
@@ -243,6 +244,8 @@ public:
     }
 
     bool isBufferReady() const { return mBuffer != nullptr; }
+
+    bool isIndexValid(s32 idx) const { return u32(idx) < u32(mSize); }
 
     T& operator()(s32 idx) { return *unsafeGet(idx); }
     const T& operator()(s32 idx) const { return *unsafeGet(idx); }

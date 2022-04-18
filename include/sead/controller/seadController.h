@@ -1,7 +1,7 @@
 #pragma once
 
-#include "sead/container/seadOffsetList.h"
-#include "sead/controller/seadControllerBase.h"
+#include "container/seadOffsetList.h"
+#include "controller/seadControllerBase.h"
 
 namespace sead
 {

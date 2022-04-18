@@ -1,13 +1,13 @@
 #ifndef SEAD_FILEDEVICE_H_
 #define SEAD_FILEDEVICE_H_
 
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadSafeArray.h>
-#include <sead/container/seadTList.h>
-#include <sead/heap/seadDisposer.h>
-#include <sead/heap/seadHeap.h>
-#include <sead/prim/seadRuntimeTypeInfo.h>
-#include <sead/prim/seadSafeString.h>
+#include <basis/seadTypes.h>
+#include <container/seadSafeArray.h>
+#include <container/seadTList.h>
+#include <heap/seadDisposer.h>
+#include <heap/seadHeap.h>
+#include <prim/seadRuntimeTypeInfo.h>
+#include <prim/seadSafeString.h>
 
 namespace sead
 {

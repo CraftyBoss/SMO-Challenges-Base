@@ -2,7 +2,7 @@
 
 #include <cstring>
 
-#include "../basis/seadTypes.h"
+#include <basis/seadTypes.h>
 
 namespace sead
 {

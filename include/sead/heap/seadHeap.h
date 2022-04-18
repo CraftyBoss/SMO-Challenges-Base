@@ -3,17 +3,17 @@
 
 #include <stddef.h>
 
-#include <sead/basis/seadRawPrint.h>
-#include <sead/basis/seadTypes.h>
-#include <sead/container/seadOffsetList.h>
-#include <sead/heap/seadDisposer.h>
-#include <sead/hostio/seadHostIOReflexible.h>
-#include <sead/prim/seadBitFlag.h>
-#include <sead/prim/seadEnum.h>
-#include <sead/prim/seadNamable.h>
-#include <sead/prim/seadRuntimeTypeInfo.h>
-#include <sead/prim/seadSafeString.h>
-#include <sead/thread/seadCriticalSection.h>
+#include <basis/seadRawPrint.h>
+#include <basis/seadTypes.h>
+#include <container/seadOffsetList.h>
+#include <heap/seadDisposer.h>
+#include <hostio/seadHostIOReflexible.h>
+#include <prim/seadBitFlag.h>
+#include <prim/seadEnum.h>
+#include <prim/seadNamable.h>
+#include <prim/seadRuntimeTypeInfo.h>
+#include <prim/seadSafeString.h>
+#include <thread/seadCriticalSection.h>
 
 namespace sead
 {

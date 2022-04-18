@@ -1,7 +1,8 @@
 #pragma once
 
 #include "PlayerAnimFrameCtrl.h"
-#include "sead/prim/seadSafeString.h"
+#include "PlayerModelHolder.h"
+#include "sead/prim/seadSafeString.hpp"
 
 class PlayerAnimator {
     public:
@@ -38,7 +39,10 @@ class PlayerAnimator {
         void setPartsAnimRate(float, char const*);
         void setPartsAnimFrame(float, char const*);
 
-        unsigned char padding_18[0x18];
+
+        PlayerModelHolder *mModelHolder; // 0x0
+        al::LiveActor *mPlayerDeco; // 0x8
+        void *unkPtr; // 0x10
         PlayerAnimFrameCtrl *mAnimFrameCtrl; // 0x18
         sead::SafeString curAnim;  // 0x20
         unsigned char padding_78[0x78 - 0x30];
