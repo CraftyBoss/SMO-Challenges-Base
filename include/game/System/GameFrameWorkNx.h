@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/debug/GpuPerf.h"
+//#include "al/debug/GpuPerf.h"
 #include "agl/DrawContext.h"
 #include "agl/RenderBuffer.h"
 #include "sead/framework/seadGameFramework.h"
@@ -18,7 +18,7 @@ namespace al
             void *unkPtr1; // 0x220
             agl::RenderBuffer *mSecondRenderBuffer; // 0x228
             unsigned char padding_248[0x18];
-            al::GpuPerf *mGpuPerf; // 0x248
+            //al::GpuPerf *mGpuPerf; // 0x248
             unsigned char padding_268[0x18];
             bool unkBool; // 0x268 
             bool unkBool2; // 0x269
