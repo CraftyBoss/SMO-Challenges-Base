@@ -185,6 +185,7 @@ def addPatchFromFile(patchFilePath):
     with open(patchFilePath) as patchFile:
         fileLinesIter = iter(patchFile)
         isInMultiPatch = False
+        inACommentBlock = False
         while True:
             # read next line
             if isInMultiPatch:
@@ -195,6 +196,14 @@ def addPatchFromFile(patchFilePath):
                     line = next(fileLinesIter)
                 except StopIteration:
                     break
+            if not inACommentBlock:
+                if line.strip() == '/*':
+                    inACommentBlock = True
+            else:
+                if line.strip() == '*/':
+                    inACommentBlock = False
+            if inACommentBlock:
+                continue
             line = line.split('/', 1)[0].strip()
 
             # if is patch variable line, e.g. [version=100]

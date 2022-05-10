@@ -3,6 +3,7 @@
 #include <sead/math/seadMatrix.h>
 #include <sead/math/seadQuat.h>
 #include <sead/math/seadVector.h>
+#include <sead/math/seadBoundBox.h>
 #include <sead/prim/seadSafeString.h>
 #include "al/LiveActor/LiveActor.h"
 #include "al/async/FunctorBase.h"
