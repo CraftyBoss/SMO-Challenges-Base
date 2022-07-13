@@ -4,10 +4,10 @@
 .PHONY: all clean starlight send
 
 SMOVER ?= 100
-IP ?= 0.0.0.0 # Put Switch IP Here (for make send)
-USER ?= user # Put username here (for make send)
-PASS ?= pass # put password here (for make send)
-SERVERIP ?= 0.0.0.0 # put debug logger server IP here
+IP ?= 192.168.1.14 # Put Switch IP Here (for make send)
+USER ?= lyta# Put username here (for make send)
+PASS ?= aaaa# put password here (for make send)
+SERVERIP ?= 192.168.1.23 # put debug logger server IP here
 
 PROJNAME ?= StarlightBase
 
@@ -31,14 +31,14 @@ starlight_patch_$(SMOVER)/*.ips: patches/*.slpatch patches/configs/$(SMOVER).con
 
 # NOTE: Make sure you configure sendPatch.py to use your login for ftp servers!
 send: all
-	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
+	python3 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
 
 log: all
-	python3.8 scripts/tcpServer.py $(SERVERIP)
+	python3 scripts/tcpServer.py $(SERVERIP)
 
 sendlog: all
-	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
-	python3.8 scripts/tcpServer.py $(SERVERIP)
+	python3 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
+	python3 scripts/tcpServer.py $(SERVERIP)
 
 clean:
 	$(MAKE) clean -f MakefileNSO

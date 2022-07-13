@@ -23,6 +23,30 @@ def listdirs(connection,_path):
             nondirs.append(name)
     return dirs
 
+def folderUpload(path):
+    for name in os.listdir(path):
+        localpath = os.path.join(path, name)
+        if os.path.isfile(localpath):
+            print("STOR", name, localpath)
+            ftp.storbinary('STOR ' + name, open(localpath,'rb'))
+        elif os.path.isdir(localpath):
+            print("MKD", name)
+
+            try:
+                ftp.mkd(name)
+
+            # ignore "directory already exists"
+            except error_perm as e:
+                if not e.args[0].startswith('550'): 
+                    raise
+
+            print("CWD", name)
+            ftp.cwd(name)
+            folderUpload(localpath)
+            print("CWD", "..")
+            ftp.cwd("..")
+
+
 
 def ensuredirectory(connection,root,path):
     print(f"Ensuring {os.path.join(root, path)} exists...")
@@ -38,8 +62,12 @@ if '.' not in consoleIP:
 consolePort = 5000
 
 projName = sys.argv[2]
-username = sys.argv[3]
-password = sys.argv[4]
+try:
+    username = sys.argv[3]
+    password = sys.argv[4]
+except:
+    username = ""
+    password = ""
 
 curDir = os.curdir
 
@@ -84,3 +112,9 @@ if os.path.isfile(binaryPath):
     sdPath = f'/atmosphere/contents/0100000000010000/exefs/subsdk1'
     print(f'Sending "{sdPath}" to {consoleIP}.')
     ftp.storbinary(f'STOR {sdPath}', open(binaryPath, 'rb'))
+
+ensuredirectory(ftp, f'/atmosphere/contents/0100000000010000', 'romfs')
+
+path = f'romfs/'
+ftp.cwd(f'/atmosphere/contents/0100000000010000/romfs')
+folderUpload(path)
