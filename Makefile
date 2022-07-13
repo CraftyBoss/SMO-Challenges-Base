@@ -31,14 +31,14 @@ starlight_patch_$(SMOVER)/*.ips: patches/*.slpatch patches/configs/$(SMOVER).con
 
 # NOTE: Make sure you configure sendPatch.py to use your login for ftp servers!
 send: all
-	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
+	python3 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
 
 log: all
-	python3.8 scripts/tcpServer.py $(SERVERIP)
+	python3 scripts/tcpServer.py $(SERVERIP)
 
 sendlog: all
-	python3.8 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
-	python3.8 scripts/tcpServer.py $(SERVERIP)
+	python3 scripts/sendPatch.py $(IP) $(PROJNAME) $(USER) $(PASS)
+	python3 scripts/tcpServer.py $(SERVERIP)
 
 clean:
 	$(MAKE) clean -f MakefileNSO
