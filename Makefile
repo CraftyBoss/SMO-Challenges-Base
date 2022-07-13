@@ -4,10 +4,10 @@
 .PHONY: all clean starlight send
 
 SMOVER ?= 100
-IP ?= 192.168.1.14 # Put Switch IP Here (for make send)
-USER ?= lyta# Put username here (for make send)
-PASS ?= aaaa# put password here (for make send)
-SERVERIP ?= 192.168.1.23 # put debug logger server IP here
+IP ?= 0.0.0.0 # Put Switch IP Here (for make send)
+USER ?= user # Put username here (for make send)
+PASS ?= pass # put password here (for make send)
+SERVERIP ?= 0.0.0.0 # put debug logger server IP here
 
 PROJNAME ?= StarlightBase
 
