@@ -182,9 +182,6 @@ void stageSceneHook()
     {
         showMenu = !showMenu;
     }
-    if(al::isPadTriggerDown(-1) && al::isPadTriggerLeft(-1)){
-        gLogger->init();
-    }
 
     __asm("MOV X0, %[input]"
           : [input] "=r"(stageScene));
