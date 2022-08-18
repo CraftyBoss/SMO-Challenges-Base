@@ -21,12 +21,15 @@ while True:
     try:
         print(f'Switch Connected! IP: {client_address[0]} Port: {client_address[1]}')
         while True:
-            data = connection.recv(1024)
-            if data:
-                print(data.decode("utf-8"))
-            else:
-                print(f'Connection Terminated.')
-                break
+            try:
+                data = connection.recv(1024)
+                if data:
+                    print(data.decode("utf-8"))
+                else:
+                    print(f'Connection Terminated.')
+                    break
+            except:
+                print("An error occured while recieving the data, passing") 
             
     finally:
         # Clean up the connection
