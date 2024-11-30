@@ -1,3 +1,6 @@
+# THIS REPO IS OBSOLETE!
+A more up to date Base repository can be found [here](https://github.com/CraftyBoss/SMO-Exlaunch-Base)
+
 # Starlight — SMO Base Project
 
 This repo contains a base project that can be used to create code modifications for Super Mario Odyssey v1.0.0. It's main purpose is to give people a project that contains headers that can be used to more easily create mods that does more to the game than what can normally be done through romfs editing alone. it also contains example code to show how to do certain things within the starlight environment.
