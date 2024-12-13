@@ -164,7 +164,7 @@ def getPatchBin(target, patchAddress, patchValueStr):
         target, toAddr = resolveAddressAndTarget(target, branchNeedResolveMatch.group(2))
         patchValueStr = (branchNeedResolveMatch.group(1) + '#' + hex(toAddr - patchAddress))
 
-    ks = Ks(KS_ARCH_ARM64, KS_MODE_LITTLE_ENDIAN)
+    ks = keystone.Ks(KS_ARCH_ARM64, KS_MODE_LITTLE_ENDIAN)
     encodedBytes, insCount = ks.asm(patchValueStr)
     return bytearray(encodedBytes)
 
